@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="docx-page-size" content="A4">
+  <title>个人工作台改造工作清单</title>
+  <style>
+  @page {
+    @bottom-center { content: counter(page); }
+  }
+  @page cover {
+    @bottom-center { content: none; }
+  }
+  section[role="cover"] { page: cover; }
+
+  :root {
+    --typography-fontFamily-heading: 微软雅黑, Microsoft YaHei, PingFang SC;
+    --typography-fontFamily-body: 微软雅黑, Microsoft YaHei, PingFang SC;
+    --typography-fontSize-coverTitle: 22pt;
+    --typography-fontSize-coverCategory: 14pt;
+    --typography-fontSize-h1: 20pt;
+    --typography-fontSize-h2: 13pt;
+    --typography-fontSize-h3: 11pt;
+    --typography-fontSize-body: 10pt;
+    --typography-fontSize-small: 9pt;
+    --typography-fontSize-tiny: 8pt;
+    --typography-lineHeight-body: 1.6;
+    --typography-fontWeight-heading: 600;
+    --typography-fontWeight-body: 400;
+
+    --color-primary: #1565C0;
+    --color-secondary: #0288D1;
+    --color-accent: #00897B;
+    --color-text: #212121;
+    --color-textSecondary: #616161;
+    --color-heading: #1A237E;
+    --color-divider: #E0E0E0;
+    --color-background: #FFFFFF;
+    --color-surface: #F5F7FA;
+
+    --spacing-paragraph: 0.75em;
+    --spacing-sectionGap: 1.6em;
+    --spacing-xs: 0.25em;
+    --spacing-sm: 0.3em;
+    --spacing-nudge: 0.35em;
+    --spacing-md: 0.4em;
+    --spacing-lg: 0.5em;
+    --spacing-xl: 0.8em;
+    --spacing-cell-y: 0.4em;
+    --spacing-cell-x: 0.6em;
+    --spacing-cell-y-sm: 0.35em;
+    --spacing-cell-x-sm: 0.55em;
+    --spacing-card-y: 0.7em;
+    --spacing-indent: 1.2em;
+    --spacing-list: 1.6em;
+    --layout-marginTop: 2.5cm;
+    --layout-marginBottom: 2.0cm;
+    --layout-marginLeft: 2.5cm;
+    --layout-marginRight: 2.5cm;
+    --layout-contentWidth: 16cm;
+
+    --fs-h1: var(--typography-fontSize-h1);
+    --fs-h2: var(--typography-fontSize-h2);
+    --fs-h3: var(--typography-fontSize-h3);
+    --fs-body: var(--typography-fontSize-body);
+    --fs-small: var(--typography-fontSize-small);
+    --fs-tiny: var(--typography-fontSize-tiny);
+    --ff-heading: var(--typography-fontFamily-heading);
+    --ff-body: var(--typography-fontFamily-body);
+    --lh-body: var(--typography-lineHeight-body);
+    --fw-bold: 700;
+    --fw-heading: var(--typography-fontWeight-heading);
+    --color-muted: var(--color-textSecondary);
+    --color-border: var(--color-divider);
+    --color-bg: var(--color-background);
+    --color-highlight: var(--color-surface);
+    --color-summary-bg: var(--color-surface);
+    --color-summary-border: var(--color-primary);
+    --summary-border-width: 4px;
+    --margin-page: var(--layout-marginLeft);
+    --spacing-section: var(--spacing-sectionGap);
+    --spacing-block: 1em;
+    --color-emphasis: #C62828;
+    --color-emphasis-ok: #2E7D32;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    max-width: var(--layout-contentWidth);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cover-category {
+    text-align: left;
+    font-size: var(--typography-fontSize-coverCategory);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    letter-spacing: 0.08em;
+    margin-bottom: var(--spacing-xl);
+  }
+  .cover-title {
+    text-align: left;
+    font-size: var(--typography-fontSize-coverTitle);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+  }
+  .cover-subtitle {
+    text-align: left;
+    font-size: var(--fs-h2);
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-section);
+  }
+  .cover-meta {
+    text-align: left;
+    font-size: var(--fs-small);
+    color: var(--color-muted);
+  }
+  .cover-rule-note {
+    text-align: left;
+    font-size: var(--fs-tiny);
+    color: var(--color-muted);
+    margin-top: var(--spacing-md);
+  }
+
+  .doc-toc { padding: var(--spacing-block) 0; border-bottom: 1px solid var(--color-border); }
+  .toc-title { font-weight: var(--fw-bold); margin-bottom: var(--spacing-lg); font-size: var(--fs-h3); }
+  .toc-list, .toc-list ol, .toc-list ul { list-style: none; padding-left: var(--spacing-indent); }
+  .toc-list li { margin-bottom: var(--spacing-xs); font-size: var(--fs-small); }
+
+  .executive-summary {
+    margin: var(--spacing-section) 0;
+    padding: var(--spacing-block);
+    border-left: var(--summary-border-width) solid var(--color-summary-border);
+    background: var(--color-summary-bg);
+  }
+  .summary-header h2 { font-size: var(--fs-h2); font-family: var(--ff-heading); color: var(--color-heading); }
+  .summary-badge { font-size: var(--fs-tiny); color: var(--color-muted); font-style: italic; }
+  .summary-body p { font-size: var(--fs-body); margin-bottom: var(--spacing-lg); }
+
+  .metrics { width: 100%; border-collapse: collapse; margin-bottom: var(--spacing-block); }
+  .metrics td { padding: var(--spacing-cell-y) var(--spacing-cell-x); border: 1px solid var(--color-border); font-size: var(--fs-small); }
+  .metrics .m-label { color: var(--color-muted); background: var(--color-bg); }
+  .metrics .m-value { font-weight: var(--fw-bold); color: var(--color-primary); text-align: center; font-size: var(--fs-body); }
+
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: var(--spacing-block); }
+  .data-table th, .data-table td {
+    padding: var(--spacing-cell-y-sm) var(--spacing-cell-x-sm);
+    border: 1px solid var(--color-border);
+    font-size: var(--fs-small);
+    vertical-align: top;
+  }
+  .data-table th { background: var(--color-highlight); font-weight: var(--fw-bold); color: var(--color-heading); }
+  .data-table td.c-id { text-align: center; white-space: nowrap; }
+  .data-table td.c-state { text-align: center; white-space: nowrap; }
+
+  .report-body h2 {
+    font-size: var(--fs-h2);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-heading);
+    color: var(--color-heading);
+    margin-top: var(--spacing-section);
+    margin-bottom: var(--spacing-lg);
+    padding-left: var(--spacing-lg);
+    border-left: 4px solid var(--color-primary);
+  }
+  .report-body h3 {
+    font-size: var(--fs-h3);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-heading);
+    color: var(--color-primary);
+    margin-top: var(--spacing-block);
+    margin-bottom: var(--spacing-nudge);
+  }
+  .report-body p { margin-bottom: var(--spacing-paragraph); }
+  .report-body ul, .report-body ol { margin-bottom: var(--spacing-paragraph); padding-left: var(--spacing-list); }
+  .report-body li { margin-bottom: var(--spacing-sm); }
+
+  .note-line {
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-surface);
+    padding: var(--spacing-lg) var(--spacing-card-y);
+    margin-bottom: var(--spacing-paragraph);
+    font-size: var(--fs-small);
+  }
+
+  .data-emphasis { color: var(--color-emphasis); font-weight: var(--fw-bold); }
+  .state-done { color: var(--color-emphasis-ok); font-weight: var(--fw-bold); }
+  .state-doing { color: var(--color-primary); font-weight: var(--fw-bold); }
+  .state-todo { color: var(--color-muted); }
+
+  .appendix { padding: var(--spacing-block) 0; border-top: 1px solid var(--color-border); margin-top: var(--spacing-section); }
+  .appendix h2 { font-size: var(--fs-h2); font-family: var(--ff-heading); color: var(--color-heading); margin-bottom: var(--spacing-lg); }
+  .appendix p { font-size: var(--fs-tiny); color: var(--color-muted); }
+  </style>
+</head>
+<body>
+  <section role="cover" class="report-cover">
+    <p class="cover-category">项目改造 · 工作清单</p>
+    <h1 class="cover-title">个人工作台改造工作清单</h1>
+    <p class="cover-subtitle">DeepSeek Harness 前端改造 · 依据 2026-09-30 定稿文档</p>
+    <div class="cover-meta">
+      <p>仓库：D:/app/deepseek-harness　|　当前 HEAD：a745d86513　|　版本：v1.0　|　日期：2026-09-30</p>
+    </div>
+  </section>
+
+  <section role="body" class="report-body" data-page-restart="1">
+    <nav class="doc-toc" aria-label="文档目录">
+      <p class="toc-title">目录</p>
+      <ol class="toc-list">
+        <li>一、背景与目标</li>
+        <li>二、当前进度核查结论</li>
+        <li>三、分阶段工作清单</li>
+        <li>四、关键技术约束</li>
+        <li>五、验收标准</li>
+        <li>附录：遗留与风险</li>
+      </ol>
+    </nav>
+
+    <div class="executive-summary">
+      <div class="summary-header">
+        <h2>执行摘要</h2>
+        <span class="summary-badge">Executive Summary</span>
+      </div>
+      <table class="metrics">
+        <tbody>
+        <tr>
+          <td class="m-label">阶段</td><td class="m-value">7</td>
+          <td class="m-label">任务条目</td><td class="m-value">62</td>
+          <td class="m-label">已开工</td><td class="m-value">1</td>
+        </tr>
+        <tr>
+          <td class="m-label">项目页签</td><td class="m-value">22</td>
+          <td class="m-label">全局项</td><td class="m-value">10</td>
+          <td class="m-label">新增数据表</td><td class="m-value">11</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="summary-body">
+        <p>本文是「把 DeepSeek Harness 内核保留、前端重做成个人工作台」这条主线的工作清单，依据 2026-09-30 定稿的三份文档编制：进度台账 <code>workbench-design/DEVELOPMENT.md</code>、D1/D12 规格 note、交互设计稿 <code>brain-dashboard-v3.html</code>。</p>
+        <p>核查结论：A3/A4/A5、D1、D12 与 D2–D11 界面均已落地并推送，但台账 D13 要求的数据模型（<span class="data-emphasis">projects 实体、projectId 外键、rules 表</span>）在代码中<span class="data-emphasis">为零命中</span>，顶层信息架构尚未落地。本次改造即补齐这一层。</p>
+      </div>
+    </div>
+
+    <main>
+      <h2>一、背景与目标</h2>
+      <p>保留 DeepSeek Harness 内核，把前端重做成个人工作台：用户有一个固定入口界面，从它出发触达一切能力；工作台承载个人知识，并可登记、启动、发布自有项目。</p>
+      <p>2026-09-30 与用户逐轮敲定的顶层信息架构（D13）是本次改造的核心，一句话概括：一切内容归属项目。</p>
+      <table class="data-table">
+        <thead><tr><th>维度</th><th>定稿内容</th></tr></thead>
+        <tbody>
+          <tr><td>项目空间</td><td>22 个可开关页签，内容生产全部下沉到项目内</td></tr>
+          <tr><td>项目模板</td><td>学术研究 / 软件开发 / 学习笔记 / 数据集工程 / 空白（决定默认开启页签）</td></tr>
+          <tr><td>全局层</td><td>10 项：仪表盘、每日小结、应用中心、Dify 智能链、全局问答、设置、回收站+备份、通知中心、数据看板、多大脑空间</td></tr>
+          <tr><td>智能体</td><td>每个功能模块 = 一个大智能体；D1 数据底座兼任触发编排器，只触发大智能体</td></tr>
+          <tr><td>桌宠</td><td>Q 版 chibi，可拖拽、点击互动、兼任全局问答入口、显示 API 余额、成长系统</td></tr>
+        </tbody>
+      </table>
+
+      <h2>二、当前进度核查结论</h2>
+      <p>核查方式：比对台账状态与代码实况（包目录、领域表定义、字段、视图文件、提交历史）。</p>
+
+      <h3>2.1 已落地（已推送）</h3>
+      <table class="data-table">
+        <thead><tr><th>条目</th><th>实况</th></tr></thead>
+        <tbody>
+          <tr><td>A3 知识库优先外壳</td><td>packages/client/ui-knowledge 已装配进 web-app/cordis.patch.yml</td></tr>
+          <tr><td>A4/A5 项目注册表与发布</td><td>packages/management/management-projects（含 src/publish.ts）</td></tr>
+          <tr><td>D1 大脑数据底座</td><td>packages/knowledge/brain，11 张表，服务 1665 行；经 SQLite 持久化</td></tr>
+          <tr><td>D12 模块智能体层</td><td>packages/knowledge/brain-agents，SubagentBrainAgentDispatcher 经 setDispatcher 挂载</td></tr>
+          <tr><td>D2–D11 界面</td><td>ui-knowledge 十个标签页视图已落盘（notes / graph / daily / dashboard / academic / annotation / apps / agents / projects / search）</td></tr>
+          <tr><td>B2/B3/C 部分</td><td>MCP 设置节、ComfyUI 设置节、ctx.vm 连接归属 + vm 设置节</td></tr>
+          <tr><td>D10 启动页</td><td>packages/client/ui-boot-splash</td></tr>
+          <tr><td>产品改名</td><td>「个人大脑」→「个人工作台」（技术标识一律不动）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 与文稿的落差（本次待办根因）</h3>
+      <table class="data-table">
+        <thead><tr><th>落差</th><th>证据</th></tr></thead>
+        <tbody>
+          <tr><td>D13 数据模型缺失</td><td>台账要求 projects 实体、projectId 外键贯穿 notes/papers/datasets/todos、rules 表；核查时三者均为零命中，领域仅 11 张表且无 project 维度</td></tr>
+          <tr><td>D13 顶层信息架构未落地</td><td>现有 projects 标签只是工作区目录（按模块分组的工作区清单），不是项目空间</td></tr>
+          <tr><td>命名撞名未决</td><td>ui-workbench 的 title 已是 Workbench，与 hub「个人工作台」并存</td></tr>
+          <tr><td>台账第 7 行矛盾</td><td>仍写作「个人工作台 + 个人大脑（个人知识管理系统）」，与改名冲突</td></tr>
+          <tr><td>测试缺口</td><td>brain / brain-agents 无 tests/ 目录（用户指示本阶段不写测试，留待后续）</td></tr>
+        </tbody>
+      </table>
+
+      <h2>三、分阶段工作清单</h2>
+      <p>共七个阶段、62 条任务。阶段一至二是数据与服务底座，阶段三至五是界面，阶段六是桌宠，阶段七是收口交付。</p>
+
+      <h3>阶段一　D13 数据底座（packages/knowledge/brain）</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>任务</th><th>产出</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">1.1</td><td>新增 projects 表：id、name、icon、color、template、tabs（页签开关）、workspacePath、spaceId、archived、时间戳</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.2</td><td>新增 spaces 表（多大脑空间：工作 / 生活隔离）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.3</td><td>projectId 外键贯穿 notes、papers、datasets、todos</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-doing">进行中</span></td></tr>
+          <tr><td class="c-id">1.4</td><td>新增 rules 表（项目级自动化规则，复用触发路由管线）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.5</td><td>新增 notifications 表（通知中心：智能体 / 余额预警 / 截止日）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.6</td><td>新增 trash 表（回收站：删除快照，可恢复）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.7</td><td>新增 snapshots 表（笔记版本历史与回滚）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.8</td><td>新增 prompts / snippets / boards / files 表（提示词库、代码片段库、白板画布、文件资料库）</td><td>types.ts / spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">1.9</td><td>BRAIN_SCHEMA_VERSION 由 1 抬至 2，并落对应迁移</td><td>spec.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段二　服务层与远程面</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>任务</th><th>产出</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">2.1</td><td>projects 资源+动词：list / get / create / update / delete / archive</td><td>service.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.2</td><td>现有资源按 projectId 作用域过滤（notes、papers、datasets、todos）</td><td>service.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.3</td><td>rules 资源 CRUD；编排器在路由时一并纳入规则，沿用来源闸门 / 幂等 / 配额 / 超时四道闸</td><td>service.ts / orchestrator.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.4</td><td>notifications / trash / snapshots / prompts / snippets / boards / files 资源动词</td><td>service.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.5</td><td>远程面 remoteExport* 补齐，浏览器经 Typert 网关消费同一表面</td><td>service.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.6</td><td>事件类型扩展：project.*、rule.*、notification.*、file.*、board.*、prompt.*、snippet.*、snapshot.*</td><td>types.ts</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">2.7</td><td>双语 README 与 .i18n.yaml 更新（含 Known Limitations）</td><td>包 README</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段三　客户端双层信息架构（packages/client/ui-knowledge）</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>任务</th><th>产出</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">3.1</td><td>表层改造为双层：全局层 + 项目空间，二选一渲染</td><td>KnowledgeSurface.tsx</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">3.2</td><td>项目列表 / 新建（选模板）/ 切换 / 归档</td><td>新视图</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">3.3</td><td>项目设置：名称、图标、主题色、页签开关、归档</td><td>新视图</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">3.4</td><td>全局层 10 项导航骨架</td><td>新视图</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">3.5</td><td>对齐 brain-dashboard-v3.html 视觉（项目总览 + 项目空间双层）</td><td>CSS Module</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段四　项目空间 22 个页签</h3>
+      <p>图例：复用 = 已有视图改造；新建 = 本次实现。</p>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>页签</th><th>类型</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">4.1</td><td>笔记（Markdown）</td><td>复用 NotesView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.2</td><td>知识图谱</td><td>复用 GraphView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.3</td><td>智能问答（项目域 RAG）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.4</td><td>文件资料库</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.5</td><td>数据标注</td><td>复用 AnnotationView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.6</td><td>任务看板</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.7</td><td>专属智能体</td><td>复用 AgentsView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.8</td><td>MCP 管理（项目 .dsh/mcp）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.9</td><td>Skill 管理（项目 .agents/skills）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.10</td><td>学术专页（论文库，学术类项目自动开启）</td><td>复用 AcademicView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.11</td><td>文献引用网络</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.12</td><td>时间线（项目活动日志）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.13</td><td>代码仓库（git 状态 + 最近提交 + 打开 IDE）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.14</td><td>终端（WSL 优先 + 模拟器兜底）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.15</td><td>发布（对接 A5 /p/&lt;id&gt; 与应用中心）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.16</td><td>日历 / 截止日</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.17</td><td>白板画布</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.18</td><td>版本历史（笔记快照回滚）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.19</td><td>提示词库（对接 Dify 智能链）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.20</td><td>代码片段库</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.21</td><td>自动化规则（D1 触发路由表的项目级可见表面）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">4.22</td><td>设置（名称 / 图标 / 主题色 / 页签开关 / 归档）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段五　全局层 10 项</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>全局项</th><th>类型</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">5.1</td><td>仪表盘（项目总览 + 跨项目统计）</td><td>复用 DashboardView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.2</td><td>每日小结</td><td>复用 DailyView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.3</td><td>应用中心</td><td>复用 AppsView</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.4</td><td>Dify 智能链</td><td>复用 AgentsView 内 Dify 段</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.5</td><td>全局问答（行动型：可派智能体干活）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.6</td><td>设置（API Key / 余额）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.7</td><td>回收站 + 备份</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.8</td><td>通知中心（智能体 / 余额预警 / 截止日汇总）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.9</td><td>数据看板（跨项目图表）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">5.10</td><td>多大脑空间（工作 / 生活隔离）</td><td>新建</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段六　DeepSeek 娘桌宠</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>任务</th><th>产出</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">6.1</td><td>资产：WorkBuddy 小猫风格 Q 版 chibi（替代现有 apps/web/public/brain/pet.png）</td><td>图片资产</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">6.2</td><td>可拖拽 + 点击气泡互动（摸头 / 戳脸差分）</td><td>新客户端组件</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">6.3</td><td>兼任全局问答入口</td><td>同上</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">6.4</td><td>气泡常驻 DeepSeek API 余额（宿主侧读凭证，浏览器只见数值）</td><td>同上</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">6.5</td><td>成长系统（陪伴时长 / 笔记数升级换装）</td><td>同上</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>阶段七　收口</h3>
+      <table class="data-table">
+        <thead><tr><th>编号</th><th>任务</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td class="c-id">7.1</td><td>pnpm run typecheck 与构建通过（本阶段不跑测试）</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">7.2</td><td>台账 DEVELOPMENT.md 回填 D13 及各条目真实状态</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">7.3</td><td>双语配对与门禁复核（translation-pairing、cordis-catalog、client-packages 等）</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+          <tr><td class="c-id">7.4</td><td>按模块 commit 并推送 workbench 远端</td><td class="c-state"><span class="state-todo">待开工</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2>四、关键技术约束</h2>
+      <table class="data-table">
+        <thead><tr><th>约束</th><th>要求</th></tr></thead>
+        <tbody>
+          <tr><td>本阶段不写测试</td><td>用户明确指示；brain / brain-agents 的测试留待后续阶段补齐</td></tr>
+          <tr><td>交付即推送</td><td>每完成一个模块即 commit 并 push 到 workbench 远端（git@github.com:yue644047-spec/personal-workbench.git）；origin（上游）只读不推；不跳 hooks</td></tr>
+          <tr><td>凭据不出宿主</td><td>DeepSeek / Dify 的 Key 只经 ctx.credentials 在宿主侧使用，浏览器仅见「已配置 / 未配置」布尔</td></tr>
+          <tr><td>技术标识不动</td><td>ctx.brain、@deepseek-ai/dsh-brain、brain 存储域、包目录、brain/* 远端命名空间与 brain/event 事件流保持原名</td></tr>
+          <tr><td>双语配对</td><td>**/README.md、docs/、python/、.agents/notes/ 下的 markdown 必须英中配对 + .i18n.yaml</td></tr>
+          <tr><td>客户端注入双份一致</td><td>源码 export const inject 与 package.json 的 dsh.client.inject 必须一致</td></tr>
+          <tr><td>注册即副作用</td><td>每个贡献点经 ctx.effect() / ctx.on()；注册表 register() 返回 disposer</td></tr>
+          <tr><td>门禁</td><td>聚合在 scripts/run-gates.ts；相关项含 verify-client-packages、verify-cordis-catalog、verify-translation-pairing、verify-client-css-tokens、verify-md-links</td></tr>
+        </tbody>
+      </table>
+
+      <h2>五、验收标准</h2>
+      <ol>
+        <li><strong>数据模型</strong>：projects 表可 CRUD；projectId 过滤在 notes / papers / datasets / todos 上生效；rules 可被编排器纳入路由；BRAIN_SCHEMA_VERSION = 2。</li>
+        <li><strong>信息架构</strong>：可从全局层进入任一项目，项目内 22 个页签可在设置中开关，逐页打开均无报错与空白。</li>
+        <li><strong>全局层</strong>：10 项全部可达；回收站可恢复，通知中心能收到智能体与截止日条目。</li>
+        <li><strong>桌宠</strong>：可拖拽、点击有气泡反馈、能发起全局问答、显示 API 余额。</li>
+        <li><strong>工程</strong>：typecheck 与构建通过；相关门禁全绿；双语配对一致。</li>
+        <li><strong>交付</strong>：按模块 commit 并已推送 workbench 远端，仓库无凭据残留。</li>
+      </ol>
+
+      <div class="note-line">
+        &nbsp;&nbsp;说明：本清单为执行台账，状态列随实施推进回填；「复用」条目指改造已有视图使其按 projectId 作用域工作，而非从零实现。
+      </div>
+    </main>
+
+    <div class="appendix">
+      <h2>附录：遗留与风险</h2>
+      <table class="data-table">
+        <thead><tr><th>项</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>命名撞名</td><td>ui-workbench 的 Workbench 与 hub「个人工作台」需区分，待用户定夺内层称谓</td></tr>
+          <tr><td>台账第 7 行</td><td>「个人工作台 + 个人大脑」表述与改名冲突，需一并修订</td></tr>
+          <tr><td>已知延后</td><td>FTS5 检索迁移、per-module preset 解析、fs-vm / subprocess-vm 占位、远程只读投影、测试补齐</td></tr>
+          <tr><td>测试缺口</td><td>brain / brain-agents 无测试；覆盖率门禁覆盖 packages/*/*/src/**，补齐前 CI 会红</td></tr>
+        </tbody>
+      </table>
+      <p>依据文档：workbench-design/DEVELOPMENT.md（进度台账）　|　.agents/notes/implemented/feature/2026-09-30-brain-foundation-and-agent-layer.md（D1/D12 规格）　|　workbench-design/brain-dashboard-v3.html（交互设计稿）</p>
+    </div>
+  </section>
+
+
+</body></html>

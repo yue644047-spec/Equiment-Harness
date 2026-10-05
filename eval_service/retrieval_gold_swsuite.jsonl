@@ -1,0 +1,10 @@
+{"id":"s01","question":"综合评估管理系统划分为几个模块？编号段是什么？","required_facts":["8 个模块","ASM"],"expected_docs":[]}
+{"id":"s02","question":"三套系统一共划分为多少个模块？","required_facts":["27 个模块"],"expected_docs":[]}
+{"id":"s03","question":"测试大纲里一共有多少个功能项、多少条用例？","required_facts":["145","465"],"expected_docs":[]}
+{"id":"s04","question":"系统一共有多少张数据表、多少个字段？","required_facts":["30 张数据表","550"],"expected_docs":[]}
+{"id":"s05","question":"指标体系管理模块的编号是什么？","required_facts":["ASM-M01"],"expected_docs":[]}
+{"id":"s06","question":"交付物清单里包含几份文档？源代码压缩包叫什么？","required_facts":["10","SwSuite"],"expected_docs":[]}
+{"id":"s07","question":"源代码的文件数、总行数与有效代码行分别是多少？","required_facts":["303","38292","28003"],"expected_docs":[]}
+{"id":"s08","question":"需求规格说明的文档编号是什么？","required_facts":["XQ-JS-02"],"expected_docs":[]}
+{"id":"s09","question":"研制总结报告里共完成了多少项研制目标？","required_facts":["14"],"expected_docs":[]}
+{"id":"s10","question":"作战实验系统划分为几个模块？包含多少条需求？","required_facts":["9 个模块","48"],"expected_docs":[]}

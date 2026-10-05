@@ -1,0 +1,36 @@
+[Unit]
+Description=Dify API (Flask/Gunicorn)
+Documentation=https://docs.dify.ai
+After=network-online.target postgresql-dify.service redis-dify.service
+Wants=network-online.target
+Requires=postgresql-dify.service redis-dify.service
+
+[Service]
+Type=simple
+User=dify
+Group=dify
+WorkingDirectory=/opt/dify/api
+EnvironmentFile=/opt/dify/config/dify.env
+Environment=MODE=api
+Environment=FLASK_APP=app.py
+Environment=DEPLOY_ENV=PRODUCTION
+Environment=PATH=/opt/dify/python/bin:/usr/local/bin:/usr/bin:/bin
+# gunicorn：与官方 docker 完全一致的参数（worker class 同时承担 websocket）
+ExecStart=/opt/dify/python/bin/python3 -m gunicorn \
+  --no-control-socket \
+  --bind 127.0.0.1:5001 \
+  --workers ${SERVER_WORKER_AMOUNT} \
+  --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker \
+  --worker-connections ${SERVER_WORKER_CONNECTIONS} \
+  --timeout ${GUNICORN_TIMEOUT} \
+  app:socketio_app
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=30
+StandardOutput=append:/data/dify/logs/api.log
+StandardError=append:/data/dify/logs/api.log
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,761 @@
+{
+  "conv-1001": {
+    "limit": 100,
+    "has_more": false,
+    "data": [
+      {
+        "id": "msg-2001",
+        "conversation_id": "conv-1001",
+        "parent_message_id": null,
+        "query": "教员让我们核对保养卡片，HYS-1 的滤芯多久更换一次？",
+        "answer": "滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。依据 HYS-WX-003《某型液压举升系统维修规程》V2.0 第 3.1.9 条与 HYS-CZ-002《某型液压举升系统操作规程》V4.0 第 7.2.7 条。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2001",
+        "elapsed_time": 2.4,
+        "created_at": 1750000000,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2001",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.95,
+            "content": "【HYS-WX-003 V2.0 3.1.9】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。更换油箱与滤芯 HYD-TK-05 的滤芯。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-CZ-002-2001",
+            "document_name": "HYS-CZ-002 某型液压举升系统操作规程 V4.0",
+            "segment_id": "seg-2002",
+            "score": 0.83,
+            "content": "【HYS-CZ-002 V4.0 7.2.7】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1237,
+            "completion_tokens": 191,
+            "total_tokens": 1428,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2002",
+        "conversation_id": "conv-1001",
+        "parent_message_id": null,
+        "query": "作业中油温报警超过 75 ℃，操作规程要求怎么处置？",
+        "answer": "油温超过 75 ℃ 时，必须立即停止举升作业，将载荷降至地面；停止液压泵站 HYD-PU-01 运转，带压状态下不得拆卸任何元件。待油温降至 45 ℃ 以下后，检查冷却器散热片是否堵塞、油液清洁度是否低于 NAS 1638 8 级。载荷接近 3000 kg 长时间连续作业时，应缩短单次连续作业时间。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2002",
+        "elapsed_time": 2.4,
+        "created_at": 1750032400,
+        "feedback": null,
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-CZ-002-2002",
+            "document_name": "HYS-CZ-002 某型液压举升系统操作规程 V4.0",
+            "segment_id": "seg-2001",
+            "score": 0.95,
+            "content": "【HYS-CZ-002 V4.0 6.1】油温超过 75 ℃：立即停止举升作业，将载荷降至地面；停止液压泵站 HYD-PU-01 运转；带压状态下不得拆卸任何元件。待油温降至 45 ℃ 以下后，检查冷却器散热片是否堵塞、油液清洁度是否低于 NAS 1638 8 级。载荷接近 3000 kg 长时间连续作业时，应缩短单次连续作业时间。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GZ-004-2002",
+            "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+            "segment_id": "seg-2002",
+            "score": 0.71,
+            "content": "【HYS-GZ-004 V1.0 FTC-002 3.3】油温过高的可能原因：冷却器散热片堵塞；液压油污染、清洁度低于 NAS 1638 8 级；长时间超载作业（接近 3000 kg）。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1274,
+            "completion_tokens": 202,
+            "total_tokens": 1476,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2003",
+        "conversation_id": "conv-1001",
+        "parent_message_id": null,
+        "query": "举升油缸缸盖螺栓的拧紧力矩是多少？拧紧顺序有要求吗？",
+        "answer": "拆装缸盖螺栓属于维修作业，作业前必须依次完成停机、切断电源并挂牌上锁、系统泄压至 0 MPa、机械支撑稳固、油温降至 45 ℃ 以下五步安全前置，顺序不得颠倒。举升油缸 HYD-CY-02 缸盖螺栓规格为 M16，拧紧力矩为 180 N·m。拧紧必须分三次进行，顺序为 60 N·m → 120 N·m → 180 N·m，每次拧紧均按对角交叉顺序进行，不得一次拧至 180 N·m。\n\n[[EVAL_RECEIPT]]{\"score\":3,\"suggestion\":\"希望补充力矩扳手的检定要求与力矩复检记录\"}",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2003",
+        "elapsed_time": 2.4,
+        "created_at": 1750093600,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2000",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2000",
+            "score": 0.9,
+            "content": "【HYS-WX-003 V2.0 第 1 章】任何维修作业开始前，必须依次完成下列五步，顺序不得颠倒：停机；切断电源并挂牌上锁；系统泄压至 0 MPa；机械支撑稳固；待油温降至 45 ℃ 以下。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2003",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.96,
+            "content": "【HYS-WX-003 V2.0 5.3】举升油缸 HYD-CY-02 左右各一，缸盖螺栓规格为 M16；缸盖螺栓 M16 拧紧力矩为 180 N·m；拧紧必须分三次进行，顺序为：60 N·m → 120 N·m → 180 N·m；每次拧紧均按对角交叉顺序进行，不得一次拧至 180 N·m。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1311,
+            "completion_tokens": 213,
+            "total_tokens": 1524,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2004",
+        "conversation_id": "conv-1001",
+        "parent_message_id": null,
+        "query": "一级保养的周期是多久？二级保养和三级保养呢？",
+        "answer": "一级保养为每 250 工作小时或 3 个月，以先到为准，主要内容是清洁、紧固、检查滤芯与接头密封；二级保养为每 1000 工作小时或 12 个月，以先到为准，检测溢流阀开启压力、检查电磁换向阀动作、检测油液清洁度；三级保养为每 4000 工作小时或 48 个月，以先到为准，解体检查液压泵、油缸，更换密封件，检查蓄能器充氮压力。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2004",
+        "elapsed_time": 2.4,
+        "created_at": 1750118800,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2004",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.93,
+            "content": "【HYS-WX-003 V2.0 表 1】一级保养：每 250 工作小时或 3 个月，以先到为准，主要内容为清洁、紧固、检查滤芯与接头密封；二级保养：每 1000 工作小时或 12 个月，以先到为准，检测溢流阀开启压力、检查电磁换向阀动作、检测油液清洁度；三级保养：每 4000 工作小时或 48 个月，以先到为准，解体检查液压泵、油缸，更换密封件，检查蓄能器充氮压力。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-ZL-005-2004",
+            "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+            "segment_id": "seg-2002",
+            "score": 0.7,
+            "content": "【HYS-ZL-005 V1.0 5.1.4】一级保养每 250 工作小时或 3 个月、二级保养每 1000 工作小时或 12 个月、三级保养每 4000 工作小时或 48 个月，均以先到为准，各资料中不得出现相互矛盾的值。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1348,
+            "completion_tokens": 224,
+            "total_tokens": 1572,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2005",
+        "conversation_id": "conv-1001",
+        "parent_message_id": null,
+        "query": "这套系统能不能在 -30 ℃ 的环境下使用？",
+        "answer": "当前知识库未收录与该问题直接相关的内容。六份现行资料中只给出油温正常范围 15 ℃ ~ 65 ℃、超过 75 ℃ 必须停机检查，未涉及 -30 ℃ 低温环境的使用限制，也没有低温液压油的牌号规定，我无法确认能否在该环境下使用。建议补充 HYS-GY-001 原理类资料的环境适应性条款后核实。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2005",
+        "elapsed_time": 2.4,
+        "created_at": 1750144000,
+        "feedback": null,
+        "retriever_resources": [],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1385,
+            "completion_tokens": 235,
+            "total_tokens": 1620,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 0
+        }
+      }
+    ]
+  },
+  "conv-1002": {
+    "limit": 100,
+    "has_more": false,
+    "data": [
+      {
+        "id": "msg-2006",
+        "conversation_id": "conv-1002",
+        "parent_message_id": null,
+        "query": "举升时动作无力、时走时停（爬行），故障案例集要求怎么排查？",
+        "answer": "这是 FTC-001「举升无力、动作爬行」。排查前先完成五步安全前置：停机 → 切断电源并挂牌上锁 → 系统泄压至 0 MPa → 机械支撑稳固 → 待油温降至 45 ℃ 以下。排除顺序不得跳步：先查油位，正常油位为液位计 1/2 ~ 2/3，不足时补加 L-HM46 抗磨液压油；再查滤芯是否堵塞，堵塞时更换滤芯；再测溢流阀 HYD-RV-04 开启压力是否为 17.5 MPa；最后对液压泵站 HYD-PU-01 做内泄漏检测，确认泵是否磨损。处置后空载试车，确认举升速度约为 0.05 m/s，无爬行现象。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2006",
+        "elapsed_time": 2.4,
+        "created_at": 1750010800,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2000",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2000",
+            "score": 0.88,
+            "content": "【HYS-WX-003 V2.0 第 1 章】任何维修作业开始前，必须依次完成下列五步，顺序不得颠倒：停机；切断电源并挂牌上锁；系统泄压至 0 MPa；机械支撑稳固；待油温降至 45 ℃ 以下。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GZ-004-2006",
+            "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+            "segment_id": "seg-2001",
+            "score": 0.94,
+            "content": "【HYS-GZ-004 V1.0 FTC-001 2.4】排除步骤（按下列顺序排查，不得跳步）：（1）先查油位：正常油位为液位计 1/2 ~ 2/3，不足时补加 L-HM46 抗磨液压油；（2）再查滤芯：滤芯堵塞时更换滤芯；（3）再测溢流阀 HYD-RV-04 开启压力是否为 17.5 MPa；（4）最后做泵内泄漏检测：对液压泵站 HYD-PU-01 进行内泄漏检测，确认泵是否磨损。"
+          },
+          {
+            "position": 3,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GZ-004-2007",
+            "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+            "segment_id": "seg-2002",
+            "score": 0.7,
+            "content": "【HYS-GZ-004 V1.0 FTC-001 2.5.5】处置后空载试车，确认举升速度约为 0.05 m/s，无爬行现象。"
+          },
+          {
+            "position": 4,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-TY-005-2006",
+            "document_name": "HYS-TY-005 术语与缩略语对照表 V2.0",
+            "segment_id": "seg-2003",
+            "score": 0.62,
+            "content": "【HYS-TY-005 V2.0 表 3】爬行 Creeping：执行元件低速运动时出现的时走时停现象；通常与油位不足、滤芯堵塞、溢流阀开启压力偏低或液压泵内泄漏有关。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1422,
+            "completion_tokens": 246,
+            "total_tokens": 1668,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 4
+        }
+      },
+      {
+        "id": "msg-2007",
+        "conversation_id": "conv-1002",
+        "parent_message_id": null,
+        "query": "溢流阀开启压力的标准值是多少？二级保养时怎么检测？",
+        "answer": "溢流阀 HYD-RV-04 开启压力标准值为 17.5 MPa。检测属于维修作业，须先完成停机、切断电源并挂牌上锁、系统泄压至 0 MPa、机械支撑稳固、油温降至 45 ℃ 以下五步安全前置。检测条件：油温在 15 ℃ ~ 65 ℃ 范围内，系统运行正常，压力表在检定有效期内。检测方法：缓慢加载升压，记录溢流阀开始溢流、压力不再上升时的压力表读数，即为开启压力。判定：开启压力为 17.5 MPa 时为合格，调整过程中系统压力不得超过最高允许压力 18 MPa。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2007",
+        "elapsed_time": 2.4,
+        "created_at": 1750021600,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2000",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2000",
+            "score": 0.89,
+            "content": "【HYS-WX-003 V2.0 第 1 章】任何维修作业开始前，必须依次完成下列五步，顺序不得颠倒：停机；切断电源并挂牌上锁；系统泄压至 0 MPa；机械支撑稳固；待油温降至 45 ℃ 以下。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2007",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.95,
+            "content": "【HYS-WX-003 V2.0 4.2】检测条件：油温在 15 ℃ ~ 65 ℃ 范围内，系统运行正常，压力表在检定有效期内。检测方法：缓慢加载升压，记录溢流阀开始溢流、压力不再上升时的压力表读数，即为开启压力。判定：开启压力为 17.5 MPa 时为合格。"
+          },
+          {
+            "position": 3,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GY-001-2007",
+            "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+            "segment_id": "seg-2002",
+            "score": 0.72,
+            "content": "【HYS-GY-001 V3.0 3.5】溢流阀 HYD-RV-04 并联于压力油路，开启压力为 17.5 MPa；系统最高允许压力为 18 MPa，任何工况下均不得超过该值。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1459,
+            "completion_tokens": 257,
+            "total_tokens": 1716,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 3
+        }
+      },
+      {
+        "id": "msg-2014",
+        "conversation_id": "conv-1002",
+        "parent_message_id": null,
+        "query": "举升到位后、插入机械安全销前，平台缓慢下沉，应该怎么处理？",
+        "answer": "按 FTC-003 处置：立即插入机械安全销，确认承载后方可靠近检查；完成停机、切断电源并挂牌上锁、系统泄压至 0 MPa、机械支撑稳固、油温降至 45 ℃ 以下五步安全前置。保压 10 分钟，观察压力下降值并记录；分段隔离电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02，逐段保压判断内泄漏部位；隔离后压力下降明显的一段即为故障段，若两段均正常则检查液压锁。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2014",
+        "elapsed_time": 2.4,
+        "created_at": 1750100800,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GZ-004-2014",
+            "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+            "segment_id": "seg-2001",
+            "score": 0.95,
+            "content": "【HYS-GZ-004 V1.0 FTC-003 4.4】立即插入机械安全销，确认承载后方可靠近检查。完成停机、切断电源并挂牌上锁、系统泄压至 0 MPa、机械支撑稳固、油温降至 45 ℃ 以下五步。保压 10 分钟，观察压力下降值，记录数据。分段隔离：分别隔离电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02，逐段保压，判断内泄漏部位。隔离后压力下降明显的一段即为故障段；若两段均正常，检查液压锁。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2014",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2002",
+            "score": 0.68,
+            "content": "【HYS-WX-003 V2.0 4.5.3】举升油缸 HYD-CY-02 内泄漏：更换活塞密封件，按 M16 缸盖螺栓 180 N·m 分三次（60 N·m → 120 N·m → 180 N·m）拧紧。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1496,
+            "completion_tokens": 268,
+            "total_tokens": 1764,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2008",
+        "conversation_id": "conv-1002",
+        "parent_message_id": null,
+        "query": "高压软管接头的拧紧力矩是多少？",
+        "answer": "高压软管接头 M22 的拧紧力矩为 120 N·m，使用力矩扳手紧固，不得超力矩紧固；软管出现鼓包、龟裂、钢丝外露的必须更换。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2008",
+        "elapsed_time": 2.4,
+        "created_at": 1750108000,
+        "feedback": {
+          "rating": "dislike",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2008",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.88,
+            "content": "【HYS-WX-003 V2.0 6.1】高压软管接头规格为 M22，拧紧力矩为 90 N·m；使用力矩扳手按 90 N·m 紧固，不得超力矩紧固。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-WX-003-2009",
+            "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+            "segment_id": "seg-2002",
+            "score": 0.65,
+            "content": "【HYS-WX-003 V2.0 6.1.2】安装前检查接头螺纹、密封面与软管外观，软管出现鼓包、龟裂、钢丝外露的必须更换。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1533,
+            "completion_tokens": 279,
+            "total_tokens": 1812,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2009",
+        "conversation_id": "conv-1002",
+        "parent_message_id": null,
+        "query": "按 HYS-CZ-002 V3.0，滤芯更换周期是 300 工作小时吗？现在现场按哪个执行？",
+        "answer": "滤芯更换周期为每 300 工作小时或 12 个月，以先到为准，到点即更换油箱与滤芯 HYD-TK-05 的滤芯。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2009",
+        "elapsed_time": 2.4,
+        "created_at": 1750133200,
+        "feedback": null,
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-ZL-005-2009",
+            "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+            "segment_id": "seg-2001",
+            "score": 0.9,
+            "content": "【HYS-ZL-005 V1.0 表 2】HYS-CZ-002《某型液压举升系统操作规程》由 V3.0 升级到 V4.0 时，滤芯更换周期由 300 工作小时修订为 500 工作小时；V3.0（2021-05-10）已作废，V4.0（2025-06-01）现行有效。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-CZ-002-2009",
+            "document_name": "HYS-CZ-002 某型液压举升系统操作规程 V4.0",
+            "segment_id": "seg-2002",
+            "score": 0.86,
+            "content": "【HYS-CZ-002 V4.0 7.2.7】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1570,
+            "completion_tokens": 290,
+            "total_tokens": 1860,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2016",
+        "conversation_id": "conv-1002",
+        "parent_message_id": "msg-2007",
+        "query": "评价一下刚才的回答：4 分，希望补充低温用油要求的说明",
+        "answer": "✅ 已记录你的评价，感谢反馈！\n\n- 满意度评分：4 / 5\n- 改进建议：希望补充低温用油要求的说明\n\n我们会据此补充装备技术资料、校正术语与版本引用，并优化回答质量。\n[[EVAL_RECEIPT]]score=4,suggestion=希望补充低温用油要求的说明[[/EVAL_RECEIPT]]",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2016",
+        "elapsed_time": 1.05,
+        "created_at": 1750162000,
+        "feedback": null,
+        "retriever_resources": [],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 820,
+            "completion_tokens": 96,
+            "total_tokens": 916,
+            "currency": "USD",
+            "total_price": "0.0012",
+            "latency": 1.05
+          },
+          "retriever_resources": 0
+        }
+      },
+      {
+        "id": "msg-2017",
+        "conversation_id": "conv-1002",
+        "parent_message_id": "msg-2006",
+        "query": "评价一下刚才的回答：5 分，建议补充蓄能器充氮压力的周期检查要求",
+        "answer": "✅ 已记录你的评价，感谢反馈！\n\n- 满意度评分：5 / 5\n- 改进建议：建议补充蓄能器充氮压力的周期检查要求\n\n我们会据此补充装备技术资料、校正术语与版本引用，并优化回答质量。\n[[EVAL_RECEIPT]]score=5,suggestion=建议补充蓄能器充氮压力的周期检查要求[[/EVAL_RECEIPT]]",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2017",
+        "elapsed_time": 1.02,
+        "created_at": 1750165600,
+        "feedback": null,
+        "retriever_resources": [],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 834,
+            "completion_tokens": 101,
+            "total_tokens": 935,
+            "currency": "USD",
+            "total_price": "0.0013",
+            "latency": 1.02
+          },
+          "retriever_resources": 0
+        }
+      }
+    ]
+  },
+  "conv-1003": {
+    "limit": 100,
+    "has_more": false,
+    "data": [
+      {
+        "id": "msg-2011",
+        "conversation_id": "conv-1003",
+        "parent_message_id": null,
+        "query": "资料里 HYD-PU-01 这个代号指的是什么部件？",
+        "answer": "HYD-PU-01 表示液压泵站：HYD 为 Hydraulic（液压），PU 为 Pump Unit（泵站）。部件代号由「HYD」或「ELC」加两位功能缩略语与两位顺序号组成；引用部件时必须同时给出部件名称与代号，避免歧义。液压泵站提供压力油源，输出额定工作压力 16 MPa。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2011",
+        "elapsed_time": 2.4,
+        "created_at": 1750014400,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-TY-005-2011",
+            "document_name": "HYS-TY-005 术语与缩略语对照表 V2.0",
+            "segment_id": "seg-2001",
+            "score": 0.93,
+            "content": "【HYS-TY-005 V2.0 表 1、表 2】HYD：Hydraulic（液压）；PU：Pump Unit（泵站）；液压泵站的代号为 HYD-PU-01。部件代号由「HYD」或「ELC」加两位功能缩略语与两位顺序号组成；引用部件时必须同时给出部件名称与代号，避免歧义。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GY-001-2011",
+            "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+            "segment_id": "seg-2002",
+            "score": 0.8,
+            "content": "【HYS-GY-001 V3.0 2.1.1 表 1】液压泵站 HYD-PU-01：提供压力油源，输出额定工作压力 16 MPa。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1607,
+            "completion_tokens": 301,
+            "total_tokens": 1908,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      },
+      {
+        "id": "msg-2012",
+        "conversation_id": "conv-1003",
+        "parent_message_id": null,
+        "query": "蓄能器 HYD-AC-07 有什么作用？充氮压力是多少？",
+        "answer": "蓄能器（HYD-AC-07）充氮压力为 10 MPa，在本回路中承担三项作用：吸收液压泵站输出压力的周期性脉动，减小压力表指针波动；在保压工况下补偿电磁换向阀与举升油缸的微小内泄漏，减缓平台下沉；在换向瞬间缓冲压力冲击，降低冲击峰值。蓄能器属于压力容器，检查与充气应由具备资格的人员按维修规程执行。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2012",
+        "elapsed_time": 2.4,
+        "created_at": 1750039600,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GY-001-2012",
+            "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+            "segment_id": "seg-2001",
+            "score": 0.94,
+            "content": "【HYS-GY-001 V3.0 第 5 章】蓄能器 HYD-AC-07 充氮压力为 10 MPa。吸收压力脉动：吸收液压泵站 HYD-PU-01 输出压力的周期性脉动，减小压力表指针波动。保压补偿：在保压工况下补偿电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02 的微小内泄漏，减缓平台下沉。缓冲冲击：换向瞬间产生压力冲击，蓄能器降低冲击峰值。蓄能器属于压力容器，检查与充气应由具备资格的人员按维修规程执行。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1644,
+            "completion_tokens": 312,
+            "total_tokens": 1956,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 1
+        }
+      },
+      {
+        "id": "msg-2013",
+        "conversation_id": "conv-1003",
+        "parent_message_id": null,
+        "query": "电控单元 ELC-CU-06 采用的是哪个厂家的 PLC？固件版本是多少？",
+        "answer": "电控单元采用某进口品牌 PLC，型号 XC-2000，固件版本 V4.2，可通过专用编程电缆在 5 分钟内完成在线升级；升级后须重新标定压力传感器，并核对电磁换向阀的动作电压与绝缘电阻。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2013",
+        "elapsed_time": 2.4,
+        "created_at": 1750072000,
+        "feedback": {
+          "rating": "dislike",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-GY-001-2013",
+            "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+            "segment_id": "seg-2001",
+            "score": 0.55,
+            "content": "【HYS-GY-001 V3.0 2.1.1 表 1】电控单元 ELC-CU-06：发出控制指令，采集油温、油位与压力信号并报警。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1681,
+            "completion_tokens": 323,
+            "total_tokens": 2004,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 1
+        }
+      },
+      {
+        "id": "msg-2010",
+        "conversation_id": "conv-1003",
+        "parent_message_id": null,
+        "query": "有没有 HYS-1 的配套培训教材或考核题库？",
+        "answer": "当前知识库未收录与该问题直接相关的内容。《装备技术资料清单与版本台账》只收录了工作原理、操作规程、维修规程、故障案例集、术语与缩略语对照表五类技术资料，未收录培训教材与考核题库，我无法确认是否配套。\n\n[[EVAL_RECEIPT]]score=2,suggestion=希望补充面向新上岗人员的培训教材与考核题库[[/EVAL_RECEIPT]]",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2010",
+        "elapsed_time": 2.4,
+        "created_at": 1750158400,
+        "feedback": null,
+        "retriever_resources": [],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1718,
+            "completion_tokens": 334,
+            "total_tokens": 2052,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 0
+        }
+      },
+      {
+        "id": "msg-2015",
+        "conversation_id": "conv-1003",
+        "parent_message_id": null,
+        "query": "现场资料核对时，怎么判断某一册资料是否还能继续使用？",
+        "answer": "先核对资料编号、版本号、发布日期与状态：同一资料编号只允许一个现行有效版本；出现多个版本时，以状态为「现行有效」且发布日期最晚的版本为准。引用技术数据前必须核对版本号与发布日期，禁止引用已作废版本。已作废版本应加盖「作废」标识并单独存放，不得在现场继续使用。",
+        "status": "normal",
+        "error": null,
+        "workflow_run_id": "wf-2015",
+        "elapsed_time": 2.4,
+        "created_at": 1750169200,
+        "feedback": {
+          "rating": "like",
+          "content": ""
+        },
+        "retriever_resources": [
+          {
+            "position": 1,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-ZL-005-2015",
+            "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+            "segment_id": "seg-2001",
+            "score": 0.92,
+            "content": "【HYS-ZL-005 V1.0 1.1.2】同一资料编号只允许一个现行有效版本；出现多个版本时，以状态为「现行有效」且发布日期最晚的版本为准。"
+          },
+          {
+            "position": 2,
+            "dataset_id": "ds-hys-tech-kb",
+            "dataset_name": "某型液压举升系统技术资料库",
+            "document_id": "doc-HYS-ZL-005-2016",
+            "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+            "segment_id": "seg-2002",
+            "score": 0.85,
+            "content": "【HYS-ZL-005 V1.0 1.1.3、2.3.2】引用技术数据时，必须核对所引资料的版本号与发布日期，禁止引用已作废版本；已作废版本应加盖「作废」标识并单独存放，不得在现场继续使用。"
+          }
+        ],
+        "metadata": {
+          "usage": {
+            "prompt_tokens": 1755,
+            "completion_tokens": 345,
+            "total_tokens": 2100,
+            "currency": "USD",
+            "total_price": "0.0031",
+            "latency": 2.4
+          },
+          "retriever_resources": 2
+        }
+      }
+    ]
+  }
+}

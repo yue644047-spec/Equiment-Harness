@@ -1,0 +1,24 @@
+{"id":"r01","question":"滤芯多久需要更换一次？","required_facts":["500 工作小时"],"expected_docs":["HYS-WX-003","HYS-CZ-002"]}
+{"id":"r02","question":"系统压力上限是多少？","required_facts":["16 MPa","18 MPa"],"expected_docs":["HYS-GY-001","HYS-CZ-002"]}
+{"id":"r03","question":"溢流阀 HYD-RV-04 的开启压力是多少？","required_facts":["17.5 MPa"],"expected_docs":[]}
+{"id":"r04","question":"如何更换滤芯？","required_facts":["端盖","旧滤芯"],"expected_docs":["HYS-WX-003"]}
+{"id":"r05","question":"油温到多少必须停机？","required_facts":["75 ℃"],"expected_docs":["HYS-GY-001","HYS-CZ-002"]}
+{"id":"r06","question":"油缸缸盖螺栓的拧紧力矩是多少？","required_facts":["180 N·m"],"expected_docs":["HYS-WX-003"]}
+{"id":"r07","question":"HYD-CY-02 是什么部件？","required_facts":["举升油缸"],"expected_docs":["HYS-GY-001","HYS-TY-005"]}
+{"id":"r08","question":"这套系统由哪几个部件组成？","required_facts":["液压泵站","蓄能器"],"expected_docs":["HYS-GY-001"]}
+{"id":"r09","question":"举升额定负载、举升速度和举升最大高度分别是多少？","required_facts":["3000 kg","0.05 m/s","1.8 m"],"expected_docs":["HYS-GY-001"]}
+{"id":"r10","question":"油箱容量是多少？正常工作油位怎么看？","required_facts":["60 L","1/2 ~ 2/3"],"expected_docs":["HYS-GY-001","HYS-CZ-002"]}
+{"id":"r11","question":"蓄能器 HYD-AC-07 的充氮压力是多少？","required_facts":["10 MPa"],"expected_docs":["HYS-GY-001","HYS-WX-003"]}
+{"id":"r12","question":"一级、二级、三级保养的周期分别是多少？","required_facts":["250 工作小时","1000 工作小时"],"expected_docs":["HYS-WX-003"]}
+{"id":"r13","question":"举升速度明显低于 0.05 m/s、时走时停，按哪个案例处置？","required_facts":["FTC-001"],"expected_docs":["HYS-GZ-004"]}
+{"id":"r14","question":"举升到位后、插入机械安全销前平台缓慢下沉，怎么处理？","required_facts":["FTC-003"],"expected_docs":["HYS-GZ-004"]}
+{"id":"r15","question":"蓄能器属于压力容器吗？检查和充气有什么要求？","required_facts":["蓄能器"],"expected_docs":["HYS-WX-003","HYS-GY-001"]}
+{"id":"r16","question":"现行有效的装备技术资料有哪几份？","required_facts":["HYS-CZ-002"],"expected_docs":["HYS-ZL-005"]}
+{"id":"r17","question":"更换滤芯前必须完成哪五步安全前置？","required_facts":["挂牌上锁","泄压"],"expected_docs":["HYS-WX-003"]}
+{"id":"r18","question":"滤芯更换时必须注意哪些禁止或警告事项？","required_facts":["禁止带压拆卸"],"expected_docs":["HYS-WX-003","HYS-CZ-002"]}
+{"id":"h01","question":"哪些资料涉及滤芯更换？各自规定了什么？","required_facts":["500 工作小时"],"expected_docs":["HYS-WX-003","HYS-CZ-002"]}
+{"id":"h02","question":"额定工作压力、最高允许压力和溢流阀开启压力分别是多少？有什么区别？","required_facts":["16 MPa","18 MPa","17.5 MPa"],"expected_docs":["HYS-GY-001","HYS-WX-003"]}
+{"id":"h03","question":"滤芯更换周期在 HYS-CZ-002 V3.0 与 V4.0 之间有什么变化？","required_facts":["500 工作小时"],"expected_docs":["HYS-ZL-005","HYS-CZ-002"]}
+{"id":"h04","question":"举升到位后为什么必须插入机械安全销？","required_facts":["机械安全销"],"expected_docs":["HYS-GY-001","HYS-CZ-002","HYS-WX-003"]}
+{"id":"h05","question":"术语表里 CY 与 RV 分别代表什么？","required_facts":["油缸","溢流阀"],"expected_docs":["HYS-TY-005"]}
+{"id":"h06","question":"如果油温升到 70 ℃，还能继续举升作业吗？","required_facts":["65"],"expected_docs":["HYS-CZ-002","HYS-GY-001"]}

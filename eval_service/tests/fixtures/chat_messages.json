@@ -1,0 +1,339 @@
+{
+  "滤芯多久需要更换一次？": {
+    "current": {
+      "answer": "滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换（HYS-WX-003 V2.0 3.1.9）。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2001",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.95,
+          "content": "【HYS-WX-003 V2.0 3.1.9】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-0"
+    },
+    "baseline": {
+      "answer": "一般一年换一次就行，具体看使用情况。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2001",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.62,
+          "content": "【HYS-WX-003 V2.0 3.1.9】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-0"
+    }
+  },
+  "按 HYS-CZ-002 V3.0，滤芯更换周期是 300 工作小时吗？": {
+    "current": {
+      "answer": "不是。现行有效版本为 HYS-CZ-002 V4.0（2025-06-01），规定每 500 工作小时或 12 个月，以先到为准；V3.0（2021-05-10）中写的 300 工作小时已作废，不得再引用（HYS-ZL-005 V1.0 表 2）。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-ZL-005-2002",
+          "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.9,
+          "content": "【HYS-ZL-005 V1.0 表 2】HYS-CZ-002 由 V3.0 升级到 V4.0 时，滤芯更换周期由 300 工作小时修订为 500 工作小时；V3.0（2021-05-10）已作废，V4.0（2025-06-01）现行有效。"
+        },
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2001",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.95,
+          "content": "【HYS-WX-003 V2.0 3.1.9】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-1"
+    },
+    "baseline": {
+      "answer": "是的，HYS-CZ-002 中滤芯更换周期为 300 工作小时。\n\n[[EVAL_RECEIPT]]{\"score\":1,\"suggestion\":\"引用了作废版本的周期\"}",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-ZL-005-2002",
+          "document_name": "HYS-ZL-005 装备技术资料清单与版本台账 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.8,
+          "content": "【HYS-ZL-005 V1.0 表 2】HYS-CZ-002 由 V3.0 升级到 V4.0 时，滤芯更换周期由 300 工作小时修订为 500 工作小时；V3.0（2021-05-10）已作废，V4.0（2025-06-01）现行有效。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-1"
+    }
+  },
+  "油温超过 75 ℃ 时应如何处置？": {
+    "current": {
+      "answer": "立即停止举升作业并将载荷降至地面；停止液压泵站 HYD-PU-01 运转，带压状态下不得拆卸任何元件；待油温降至 45 ℃ 以下后检查冷却器散热片是否堵塞、油液清洁度是否低于 NAS 1638 8 级。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-CZ-002-2003",
+          "document_name": "HYS-CZ-002 某型液压举升系统操作规程 V4.0",
+          "segment_id": "seg-2001",
+          "score": 0.95,
+          "content": "【HYS-CZ-002 V4.0 6.1】油温超过 75 ℃：立即停止举升作业，将载荷降至地面；停止液压泵站 HYD-PU-01 运转；带压状态下不得拆卸任何元件。待油温降至 45 ℃ 以下后，检查冷却器散热片是否堵塞、油液清洁度是否低于 NAS 1638 8 级。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-2"
+    },
+    "baseline": {
+      "answer": "停机休息一会儿，等温度降下来再继续作业。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-CZ-002-2003",
+          "document_name": "HYS-CZ-002 某型液压举升系统操作规程 V4.0",
+          "segment_id": "seg-2001",
+          "score": 0.6,
+          "content": "【HYS-CZ-002 V4.0 6.1】油温超过 75 ℃：立即停止举升作业，将载荷降至地面；停止液压泵站 HYD-PU-01 运转；带压状态下不得拆卸任何元件。待油温降至 45 ℃ 以下后，检查冷却器散热片是否堵塞、油液清洁度是否低于 NAS 1638 8 级。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-2"
+    }
+  },
+  "油缸缸盖螺栓的拧紧力矩是多少？": {
+    "current": {
+      "answer": "举升油缸 HYD-CY-02 缸盖螺栓规格为 M16，拧紧力矩为 180 N·m，必须分三次拧紧：60 N·m → 120 N·m → 180 N·m，每次均按对角交叉顺序进行，不得一次拧至 180 N·m。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2004",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.96,
+          "content": "【HYS-WX-003 V2.0 5.3】缸盖螺栓规格为 M16；缸盖螺栓 M16 拧紧力矩为 180 N·m；拧紧必须分三次进行，顺序为：60 N·m → 120 N·m → 180 N·m；每次拧紧均按对角交叉顺序进行，不得一次拧至 180 N·m。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-3"
+    },
+    "baseline": {
+      "answer": "按对角顺序一次拧紧到 180 N·m 就行。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2004",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.7,
+          "content": "【HYS-WX-003 V2.0 5.3】缸盖螺栓规格为 M16；缸盖螺栓 M16 拧紧力矩为 180 N·m；拧紧必须分三次进行，顺序为：60 N·m → 120 N·m → 180 N·m；每次拧紧均按对角交叉顺序进行，不得一次拧至 180 N·m。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-3"
+    }
+  },
+  "高压软管接头 M22 的拧紧力矩是多少？": {
+    "current": {
+      "answer": "高压软管接头 M22 的拧紧力矩为 90 N·m，应使用力矩扳手按 90 N·m 紧固，不得超力矩紧固。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2005",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.9,
+          "content": "【HYS-WX-003 V2.0 6.1】高压软管接头规格为 M22，拧紧力矩为 90 N·m；使用力矩扳手按 90 N·m 紧固，不得超力矩紧固。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-4"
+    },
+    "baseline": {
+      "answer": "大概 120 N·m 左右，拧紧不渗漏即可。\n\n[[EVAL_RECEIPT]]{\"score\":2,\"suggestion\":\"力矩值与维修规程不一致\"}",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-WX-003-2005",
+          "document_name": "HYS-WX-003 某型液压举升系统维修规程 V2.0",
+          "segment_id": "seg-2001",
+          "score": 0.75,
+          "content": "【HYS-WX-003 V2.0 6.1】高压软管接头规格为 M22，拧紧力矩为 90 N·m；使用力矩扳手按 90 N·m 紧固，不得超力矩紧固。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-4"
+    }
+  },
+  "举升速度明显低于 0.05 m/s、时走时停，按哪个案例处置？": {
+    "current": {
+      "answer": "按 FTC-001（举升无力、动作爬行）处置。排除顺序不得跳步：先查油位（液位计 1/2 ~ 2/3）；再查滤芯是否堵塞；再测溢流阀 HYD-RV-04 开启压力是否为 17.5 MPa；最后做液压泵站内泄漏检测。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GZ-004-2006",
+          "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.94,
+          "content": "【HYS-GZ-004 V1.0 FTC-001 2.4】排除步骤（按下列顺序排查，不得跳步）：（1）先查油位：正常油位为液位计 1/2 ~ 2/3，不足时补加 L-HM46 抗磨液压油；（2）再查滤芯；（3）再测溢流阀 HYD-RV-04 开启压力是否为 17.5 MPa；（4）最后做泵内泄漏检测。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-5"
+    },
+    "baseline": {
+      "answer": "多半是液压泵坏了，直接换泵就行。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GZ-004-2006",
+          "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.55,
+          "content": "【HYS-GZ-004 V1.0 FTC-001 2.4】排除步骤（按下列顺序排查，不得跳步）：（1）先查油位：正常油位为液位计 1/2 ~ 2/3，不足时补加 L-HM46 抗磨液压油；（2）再查滤芯；（3）再测溢流阀 HYD-RV-04 开启压力是否为 17.5 MPa；（4）最后做泵内泄漏检测。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-5"
+    }
+  },
+  "举升到位后、插入机械安全销前平台缓慢下沉，怎么处理？": {
+    "current": {
+      "answer": "按 FTC-003 处置：立即插入机械安全销，确认承载后方可靠近检查；保压 10 分钟记录压力下降值；分段隔离电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02，逐段保压判断内泄漏部位。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GZ-004-2007",
+          "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.95,
+          "content": "【HYS-GZ-004 V1.0 FTC-003 4.4】立即插入机械安全销，确认承载后方可靠近检查。保压 10 分钟，观察压力下降值。分段隔离电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02，逐段保压，判断内泄漏部位。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-6"
+    },
+    "baseline": {
+      "answer": "把换向阀拆开看看密封圈。\n\n[[EVAL_RECEIPT]]{\"score\":1,\"suggestion\":\"未提示插入机械安全销，存在坠落风险\"}",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GZ-004-2007",
+          "document_name": "HYS-GZ-004 某型液压举升系统典型故障案例集 V1.0",
+          "segment_id": "seg-2001",
+          "score": 0.6,
+          "content": "【HYS-GZ-004 V1.0 FTC-003 4.4】立即插入机械安全销，确认承载后方可靠近检查。保压 10 分钟，观察压力下降值。分段隔离电磁换向阀 HYD-VL-03 与举升油缸 HYD-CY-02，逐段保压，判断内泄漏部位。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-6"
+    }
+  },
+  "蓄能器 HYD-AC-07 有什么作用？充氮压力是多少？": {
+    "current": {
+      "answer": "蓄能器 HYD-AC-07 充氮压力为 10 MPa；作用是吸收压力脉动、在保压工况下补偿电磁换向阀与举升油缸的微小内泄漏以减缓平台下沉、缓冲换向冲击。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GY-001-2008",
+          "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+          "segment_id": "seg-2001",
+          "score": 0.94,
+          "content": "【HYS-GY-001 V3.0 第 5 章】蓄能器 HYD-AC-07 充氮压力为 10 MPa。吸收压力脉动；保压补偿：补偿电磁换向阀与举升油缸的微小内泄漏，减缓平台下沉；缓冲冲击。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-7"
+    },
+    "baseline": {
+      "answer": "主要起缓冲作用，充氮压力大约 12 MPa。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GY-001-2008",
+          "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+          "segment_id": "seg-2001",
+          "score": 0.66,
+          "content": "【HYS-GY-001 V3.0 第 5 章】蓄能器 HYD-AC-07 充氮压力为 10 MPa。吸收压力脉动；保压补偿：补偿电磁换向阀与举升油缸的微小内泄漏，减缓平台下沉；缓冲冲击。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-7"
+    }
+  },
+  "液压泵站 HYD-PU-01 驱动电机的功率和电压等级是多少？": {
+    "current": {
+      "answer": "当前知识库未收录与该问题直接相关的内容。六份现行资料中只给出液压泵站输出额定工作压力 16 MPa，未涉及驱动电机的功率、电压等级与绝缘等级，我无法确认。建议补充 HYS-GY-001 原理类资料或 HYS-WX-003 维修规程中的电机参数条目。",
+      "retriever_resources": [],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-8"
+    },
+    "baseline": {
+      "answer": "配套 7.5 kW 电机，电压等级 380 V，防护等级 IP54。\n\n[[EVAL_RECEIPT]]{\"score\":1,\"suggestion\":\"资料中查不到电机参数，疑似编造\"}",
+      "retriever_resources": [],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-8"
+    }
+  },
+  "这套装备在 -40 ℃ 高原低温环境下的使用限制是什么？": {
+    "current": {
+      "answer": "当前知识库未收录与该问题直接相关的内容。现行资料只给出油温正常范围 15 ℃ ~ 65 ℃、超过 75 ℃ 必须停机检查，未涉及 -40 ℃ 高原低温环境的使用限制；本系统指定用油只有 L-HM46 抗磨液压油，无低温用油规定。建议补充 HYS-GY-001 原理类资料的环境适应性条款。",
+      "retriever_resources": [],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-9"
+    },
+    "baseline": {
+      "answer": "可以使用，换成 10 号低温液压油即可。",
+      "retriever_resources": [
+        {
+          "position": 1,
+          "dataset_id": "ds-hys-tech-kb",
+          "dataset_name": "某型液压举升系统技术资料库",
+          "document_id": "doc-HYS-GY-001-2009",
+          "document_name": "HYS-GY-001 某型液压举升系统工作原理 V3.0",
+          "segment_id": "seg-2001",
+          "score": 0.4,
+          "content": "【HYS-GY-001 V3.0 2.1.1 表 1】液压泵站 HYD-PU-01：提供压力油源，输出额定工作压力 16 MPa。"
+        }
+      ],
+      "conversation_id": "mock-conv-regression",
+      "message_id": "mock-msg-b-9"
+    }
+  }
+}

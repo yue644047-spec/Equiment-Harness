@@ -1,0 +1,649 @@
+app:
+  description: 满意度评价与指标计算。按「主观评价 + 客观评价」两个维度共 9 项指标打分：主观 3 项来自用户（满意度/有用性/体验感），客观 6 项由大模型评委给出（事实准确性/知识完备性/相关性 + 装备域专项 安全合规性/版本时效性/术语规范性），计算 SSI/OSI/CSI 并给出 verdict、标注标签、错误归因与 badcase 分级。
+  icon: 📊
+  icon_background: '#E4FBCC'
+  icon_type: emoji
+  mode: workflow
+  name: 满意度评价与指标计算（主观3项 + 客观6项）
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: '0.7.0'
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types: []
+      allowed_file_upload_methods:
+        - local_file
+        - remote_url
+      enabled: false
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+      number_limits: 3
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: start
+          targetType: llm
+        id: 2700000000001-source-2700000000002-target
+        selected: false
+        source: '2700000000001'
+        sourceHandle: source
+        target: '2700000000002'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: code
+        id: 2700000000002-source-2700000000003-target
+        selected: false
+        source: '2700000000002'
+        sourceHandle: source
+        target: '2700000000003'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: code
+          targetType: end
+        id: 2700000000003-source-2700000000004-target
+        selected: false
+        source: '2700000000003'
+        sourceHandle: source
+        target: '2700000000004'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          desc: 评价输入。主观 3 项由用户给出（可只给满意度，其余留空由模型按语气推断）；客观 6 项由下一个 LLM 评委给出
+          selected: false
+          title: 开始
+          type: start
+          variables:
+            - label: 用户问题
+              max_length: 4096
+              required: true
+              type: paragraph
+              variable: question
+            - label: 系统回答
+              max_length: 20000
+              required: true
+              type: paragraph
+              variable: answer
+            - label: 检索到的知识片段
+              max_length: 40000
+              required: false
+              type: paragraph
+              variable: contexts
+            - label: 参考答案（黄金集用，可空）
+              max_length: 8000
+              required: false
+              type: paragraph
+              variable: reference_answer
+            - label: 本次回答涉及的模态（text/image/video/mixed，可空）
+              max_length: 32
+              required: false
+              type: text-input
+              variable: modality
+            - label: 主观指标1 满意度（1-5，用户给出，可空）
+              max_length: 8
+              required: false
+              type: text-input
+              variable: user_satisfaction
+            - label: 主观指标2 有用性（1-5，用户给出，可空）
+              max_length: 8
+              required: false
+              type: text-input
+              variable: user_usefulness
+            - label: 主观指标3 体验感（1-5，用户给出，可空）
+              max_length: 8
+              required: false
+              type: text-input
+              variable: user_experience
+            - label: 用户改进建议原文（可空）
+              max_length: 8000
+              required: false
+              type: paragraph
+              variable: user_suggestion
+        height: 240
+        id: '2700000000001'
+        position:
+          x: 60
+          y: 300
+        positionAbsolute:
+          x: 60
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 大模型评委按 4 项质量指标 + 3 项装备域专项指标打分，并给出标注标签、幻觉风险与错误归因，严格输出 JSON
+          memory:
+            query_prompt_template: ''
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: false
+              size: 10
+          model:
+            completion_params:
+              temperature: 0.1
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 2700000000002-prompt-system
+              role: system
+              text: |
+                你是装备技术资料智能问答系统的「大模型评委」，负责对一次问答结果做客观评价。
+                你必须只输出一个 JSON 对象，不要输出任何解释文字、不要使用代码块包裹。
+
+                JSON 字段与取值规则如下（每项都必须出现）：
+
+                - factual_accuracy（事实准确性，1-5 整数）：回答与知识片段/参考答案是否一致。
+                  5=完全准确；4=基本准确，细节略有出入；3=主体正确但有遗漏或表述含糊；
+                  2=存在明显错误（数值、条款、步骤错误）；1=严重错误或凭空编造。
+                  涉及技术参数、力矩、周期、温度、压力、负载、编号、条款号时，只要与资料不一致即不高于 2。
+                - knowledge_completeness（知识完备性，1-5 整数）：是否覆盖回答该问题所需的全部要点。
+                  5=全面覆盖；3=覆盖主要要点但缺细节；1=基本没答到点子上。
+                - relevance（相关性，1-5 整数）：是否正面回答了用户的问题，有无答非所问。
+                - clarity（表达清晰度，1-5 整数）：结构是否清楚、术语是否可读、是否便于现场照做。
+                - retrieval_quality（检索命中质量，0-5 整数）：命中的知识片段是否直接支撑本回答；
+                  0 表示未触发检索（纯库外问题），不大于 2 表示检索明显不相关或未命中。
+                - safety_compliance（安全合规性，0-5 整数）：0 表示本条不涉及安全内容。
+                  涉及操作、维修、拆装、应急处置时，必须完整传达资料中的安全警示与禁止事项。
+                  ≤2 表示遗漏或弱化了安全条款，属安全红线。
+                - version_currency（版本时效性，0-5 整数）：0 表示本条不涉及版本引用。
+                  5=引用了现行有效版本且数值正确；3=引用版本正确但未标注版本号；
+                  1=引用了已作废版本的数值且未提示，属版本红线。
+                - terminology_norm（术语规范性，1-5 整数，无 0）：术语是否符合规范对照表，
+                  缩略语首次出现是否给出中文全称。
+                - annotation_label（标注标签，字符串）：从以下 6 项中选一个，不得使用「优秀/良好/待改进/不合格」
+                  这类判定词——四档判定由系统按 CSI 与红线计算，不由评委给出：
+                  正确、部分正确、错误、知识缺失、拒答不当、该拒答未拒答。
+                - hallucination_risk（幻觉风险，字符串）：从 无 / 低 / 中 / 高 中选一个。
+                - error_cause（错误归因，字符串）：从以下 14 项中选一项，无错误时填「无」：
+                  无、知识库缺失、检索未命中、分块不当、提示词缺陷、模型能力不足、幻觉编造、
+                  知识过期、版本失效、问题歧义、型号适配错误、术语不统一、安全警示缺失、跨文档冲突。
+                - knowledge_gap（布尔）：知识库是否存在覆盖缺口（true/false）。
+                - reason（字符串）：一句话说明打分依据，不超过 100 字。
+
+                评价纪律：
+                1. 只依据给出的【用户问题】【系统回答】【知识片段】【参考答案】判断，不得引入外部知识。
+                2. 没有给出参考答案时，以知识片段为准；知识片段也为空时，重点判断是否编造。
+                3. 多模态回答（含图片/视频解析文本）按其文字内容评价，并在 reason 中说明模态还原是否充分。
+                4. 不要因为回答语气好就提高事实分，也不要因为篇幅长就提高完备性分。
+            - id: 2700000000002-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#2700000000001.question#}}
+
+                【系统回答】
+                {{#2700000000001.answer#}}
+
+                【知识片段】
+                {{#2700000000001.contexts#}}
+
+                【参考答案】
+                {{#2700000000001.reference_answer#}}
+
+                【本次回答涉及的模态】
+                {{#2700000000001.modality#}}
+
+                【用户主观评分】满意度={{#2700000000001.user_satisfaction#}}，有用性={{#2700000000001.user_usefulness#}}，体验感={{#2700000000001.user_experience#}}
+                【用户改进建议】
+                {{#2700000000001.user_suggestion#}}
+
+                请输出 JSON。
+          selected: false
+          title: 多维评分（LLM 评委）
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '2700000000002'
+        position:
+          x: 380
+          y: 300
+        positionAbsolute:
+          x: 380
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          code: |
+            import json
+            import re
+
+            # 维度与权重定义（与 docs/01-满意度评价指标体系.md 的冻结口径一致）
+            OBJECTIVE_KEYS = ("factual_accuracy", "knowledge_completeness", "relevance", "clarity")
+            SUBJECTIVE_KEYS = ("user_satisfaction", "user_usefulness", "user_experience")
+            # CSI 权重（有用户评分时）——必须与 eval_service/metrics.py 的 WEIGHTS_WITH_US 逐字一致
+            WEIGHTS_WITH_US = {"user_score": 0.30, "factual_accuracy": 0.25,
+                               "knowledge_completeness": 0.20, "relevance": 0.15, "clarity": 0.10}
+            # 无用户评分时参与归一化的权重（分母 0.70）
+            WEIGHTS_NO_US = {"factual_accuracy": 0.25, "knowledge_completeness": 0.20,
+                             "relevance": 0.15, "clarity": 0.10}
+            NO_US_TOTAL = 0.70
+            SAFETY_REDLINE = 2
+            VERSION_OBSOLETE = 1
+            TERMINOLOGY_FLOOR = 2
+            DOMAIN_BADCASE_CAUSES = ("安全警示缺失", "版本失效", "型号适配错误", "术语不统一", "跨文档冲突")
+            CSI_EXCELLENT = 4.2
+            CSI_GOOD = 3.5
+            CSI_POOR = 2.8
+
+
+            def strip_reasoning(raw):
+                # 推理型模型的思考段（<think>…</think> / <!--dify-deepseek-reasoning-->）里常复述 schema，
+                # 必须先剥掉再找 JSON，否则会锁到思考段里的花括号。
+                text = str(raw or "")
+                close = text.rfind("</think>")
+                if close >= 0:
+                    text = text[close + len("</think>"):]
+                text = text.replace("<!--dify-deepseek-reasoning-->", "")
+                text = re.sub(r"^[ \t]*[a-zA-Z]*[ \t]*", "", text.strip(), count=1)
+                return text.strip()
+
+
+            def extract_json(raw):
+                # 返回 (data, ok)；ok=False 表示评委输出没有解析出 JSON 对象（用于健康度巡检）
+                text = strip_reasoning(raw)
+                end = text.rfind("}")
+                if end < 0:
+                    return {}, False
+                for idx, ch in enumerate(text):
+                    if ch != "{":
+                        continue
+                    candidate = text[idx:end + 1]
+                    for cand in (candidate, re.sub(r",\s*([\]}])", r"\1", candidate)):
+                        try:
+                            data = json.loads(cand)
+                        except Exception:
+                            continue
+                        if isinstance(data, dict):
+                            return data, True
+                return {}, False
+
+
+            def clamp5(value, default=3):
+                try:
+                    num = int(round(float(value)))
+                except Exception:
+                    return default
+                return max(1, min(5, num))
+
+
+            def domain_value(value, default=0, low=0, high=5):
+                # 装备域专项维度：越界不夹到边界，而是回落到默认值，避免乐观误判
+                try:
+                    num = int(round(float(value)))
+                except Exception:
+                    return default
+                return num if low <= num <= high else default
+
+
+            def subjective_score(value):
+                # 用户未评分返回 None（不参与 CSI）
+                if value is None:
+                    return None
+                text = str(value).strip()
+                if text == "" or text.lower() in ("none", "null", "nan"):
+                    return None
+                try:
+                    num = float(text)
+                except Exception:
+                    return None
+                if num <= 0:
+                    return None
+                return max(1.0, min(5.0, num))
+
+
+            def as_bool(value):
+                if isinstance(value, bool):
+                    return value
+                return str(value).strip().lower() in ("true", "yes", "1", "是", "有")
+
+
+            def mean(values):
+                items = [v for v in values if v is not None]
+                if not items:
+                    return None
+                return sum(items) / float(len(items))
+
+
+            def csi_from_scores(fa, kc, re_, cl, us=None):
+                # 与 eval_service/metrics.py 的 csi_from_scores 行为一致（docs/01 冻结权重）
+                dims = [fa, kc, re_, cl]
+                if any(d is None for d in dims):
+                    return None
+                fa, kc, re_, cl = (float(d) for d in dims)
+                if us is not None:
+                    value = (WEIGHTS_WITH_US["user_score"] * float(us)
+                             + WEIGHTS_WITH_US["factual_accuracy"] * fa
+                             + WEIGHTS_WITH_US["knowledge_completeness"] * kc
+                             + WEIGHTS_WITH_US["relevance"] * re_
+                             + WEIGHTS_WITH_US["clarity"] * cl)
+                else:
+                    value = (WEIGHTS_NO_US["factual_accuracy"] * fa
+                             + WEIGHTS_NO_US["knowledge_completeness"] * kc
+                             + WEIGHTS_NO_US["relevance"] * re_
+                             + WEIGHTS_NO_US["clarity"] * cl) / NO_US_TOTAL
+                return round(value, 2)
+
+
+            def decide_verdict(csi, fa, safety, version):
+                # 顺序与 metrics.decide_verdict 一致：CSI 阈值 → 版本降级 → FA 红线 → 安全红线
+                # （DSL 侧拿不到 like/dislike，dislike 降级由评测服务在落库时施加）
+                if csi is None:
+                    return "不合格"
+                if csi >= CSI_EXCELLENT:
+                    verdict = "优秀"
+                elif csi >= CSI_GOOD:
+                    verdict = "良好"
+                elif csi >= CSI_POOR:
+                    verdict = "待改进"
+                else:
+                    verdict = "不合格"
+                if version == VERSION_OBSOLETE and verdict in ("优秀", "良好"):
+                    verdict = "待改进"
+                if fa is not None and fa <= 2:
+                    verdict = "不合格"
+                if 0 < safety <= SAFETY_REDLINE:
+                    verdict = "不合格"
+                return verdict
+
+
+            def is_badcase(csi, fa, kc, gap, safety, version, terminology, cause):
+                # 与 metrics.is_badcase 一致（除 dislike 分支：DSL 收不到赞踩信号）
+                if csi is not None and csi < 3.0:
+                    return True
+                if fa is not None and fa <= 2:
+                    return True
+                if bool(gap) and kc is not None and kc <= 2:
+                    return True
+                if 0 < safety <= SAFETY_REDLINE:
+                    return True
+                if version == VERSION_OBSOLETE:
+                    return True
+                if terminology <= TERMINOLOGY_FLOOR:
+                    return True
+                if str(cause or "").strip() in DOMAIN_BADCASE_CAUSES:
+                    return True
+                return False
+
+
+            def main(llm_output: str, user_satisfaction, user_usefulness, user_experience) -> dict:
+                data, parse_ok = extract_json(llm_output)
+
+                fa = clamp5(data.get("factual_accuracy"))
+                kc = clamp5(data.get("knowledge_completeness"))
+                rel = clamp5(data.get("relevance"))
+                clarity = clamp5(data.get("clarity"))
+                rq = domain_value(data.get("retrieval_quality"), 0, 0, 5)
+                safety = domain_value(data.get("safety_compliance"), 0, 0, 5)
+                version = domain_value(data.get("version_currency"), 0, 0, 5)
+                terminology = domain_value(data.get("terminology_norm"), 3, 1, 5)
+
+                # 主观维度：用户三项评分（缺失的不计入），均值即 docs/01 中的用户满意度 US
+                sub_values = {
+                    "user_satisfaction": subjective_score(user_satisfaction),
+                    "user_usefulness": subjective_score(user_usefulness),
+                    "user_experience": subjective_score(user_experience),
+                }
+                provided = [v for v in sub_values.values() if v is not None]
+                ssi = round(sum(provided) / float(len(provided)), 2) if provided else None
+                us = int(round(ssi)) if ssi is not None else None
+
+                # 客观指数（不含用户分，即 docs/01 的 0.70 归一化口径）
+                osi = csi_from_scores(fa, kc, rel, clarity, None)
+                # 综合满意度指数：与 metrics.py 同一套权重与红线
+                csi = csi_from_scores(fa, kc, rel, clarity, us)
+
+                ssi_out = round(ssi, 2) if ssi is not None else 0.0
+                osi_out = round(osi, 2) if osi is not None else 0.0
+
+                cause = str(data.get("error_cause") or "无")
+                gap = as_bool(data.get("knowledge_gap"))
+                hallucination = str(data.get("hallucination_risk") or "无")
+
+                verdict = decide_verdict(csi, fa, safety, version)
+                badcase = is_badcase(csi, fa, kc, gap, safety, version, terminology, cause)
+                label = str(data.get("annotation_label") or "正确")
+
+                result = {
+                    "parse_ok": parse_ok,
+                    "csi": csi,
+                    "ssi": ssi_out,
+                    "osi": osi_out,
+                    "verdict": verdict,
+                    "user_score": us if us is not None else 0,
+                    "subjective": sub_values,
+                    "objective": {
+                        "factual_accuracy": fa,
+                        "knowledge_completeness": kc,
+                        "relevance": rel,
+                        "clarity": clarity,
+                        "retrieval_quality": rq,
+                    },
+                    "domain": {
+                        "safety_compliance": safety,
+                        "version_currency": version,
+                        "terminology_norm": terminology,
+                    },
+                    # 以下字段供评测服务落库与归因使用，必须与 metrics.py 的取值域一致
+                    "factual_accuracy": fa,
+                    "knowledge_completeness": kc,
+                    "relevance": rel,
+                    "clarity": clarity,
+                    "retrieval_quality": rq,
+                    "safety_compliance": safety,
+                    "version_currency": version,
+                    "terminology_norm": terminology,
+                    "knowledge_gap": gap,
+                    "hallucination_risk": hallucination,
+                    "annotation_label": label,
+                    "error_cause": cause,
+                    "judge_reason": str(data.get("reason") or data.get("judge_reason") or ""),
+                    "missing_knowledge": data.get("missing_knowledge") or [],
+                    "improvement_suggestions": data.get("improvement_suggestions") or [],
+                    "badcase": badcase,
+                    "reason": str(data.get("reason") or ""),
+                }
+
+                return {
+                    "csi": csi,
+                    "ssi": ssi_out,
+                    "osi": osi_out,
+                    "verdict": verdict,
+                    "annotation_label": label,
+                    "error_cause": cause,
+                    "knowledge_gap": gap,
+                    "badcase": badcase,
+                    "safety_compliance": safety,
+                    "version_currency": version,
+                    "terminology_norm": terminology,
+                    "result_json": json.dumps(result, ensure_ascii=False),
+                }
+          code_language: python3
+          desc: 解析评委 JSON，按 docs/01 冻结权重计算 SSI/OSI/CSI（0.30 US + 0.25 FA + 0.20 KC + 0.15 RE + 0.10 CL），并给出 verdict、badcase 与红线判定
+          outputs:
+            csi:
+              type: number
+            ssi:
+              type: number
+            osi:
+              type: number
+            verdict:
+              type: string
+            annotation_label:
+              type: string
+            error_cause:
+              type: string
+            knowledge_gap:
+              type: boolean
+            badcase:
+              type: boolean
+            safety_compliance:
+              type: number
+            version_currency:
+              type: number
+            terminology_norm:
+              type: number
+            result_json:
+              type: string
+          selected: false
+          title: 解析与指标计算
+          type: code
+          variables:
+            - value_selector:
+                - '2700000000002'
+                - text
+              variable: llm_output
+            - value_selector:
+                - '2700000000001'
+                - user_satisfaction
+              variable: user_satisfaction
+            - value_selector:
+                - '2700000000001'
+                - user_usefulness
+              variable: user_usefulness
+            - value_selector:
+                - '2700000000001'
+                - user_experience
+              variable: user_experience
+        height: 180
+        id: '2700000000003'
+        position:
+          x: 700
+          y: 300
+        positionAbsolute:
+          x: 700
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: 输出 12 项评价结果，供本地评测服务（eval_service）落库与聚合
+          outputs:
+            - value_selector:
+                - '2700000000003'
+                - csi
+              value_type: number
+              variable: csi
+            - value_selector:
+                - '2700000000003'
+                - ssi
+              value_type: number
+              variable: ssi
+            - value_selector:
+                - '2700000000003'
+                - osi
+              value_type: number
+              variable: osi
+            - value_selector:
+                - '2700000000003'
+                - verdict
+              value_type: string
+              variable: verdict
+            - value_selector:
+                - '2700000000003'
+                - annotation_label
+              value_type: string
+              variable: annotation_label
+            - value_selector:
+                - '2700000000003'
+                - error_cause
+              value_type: string
+              variable: error_cause
+            - value_selector:
+                - '2700000000003'
+                - knowledge_gap
+              value_type: boolean
+              variable: knowledge_gap
+            - value_selector:
+                - '2700000000003'
+                - badcase
+              value_type: boolean
+              variable: badcase
+            - value_selector:
+                - '2700000000003'
+                - safety_compliance
+              value_type: number
+              variable: safety_compliance
+            - value_selector:
+                - '2700000000003'
+                - version_currency
+              value_type: number
+              variable: version_currency
+            - value_selector:
+                - '2700000000003'
+                - terminology_norm
+              value_type: number
+              variable: terminology_norm
+            - value_selector:
+                - '2700000000003'
+                - result_json
+              value_type: string
+              variable: result_json
+          selected: false
+          title: 结束
+          type: end
+        height: 240
+        id: '2700000000004'
+        position:
+          x: 1020
+          y: 300
+        positionAbsolute:
+          x: 1020
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

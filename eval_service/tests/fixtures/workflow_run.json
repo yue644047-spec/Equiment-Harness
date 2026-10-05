@@ -1,0 +1,23 @@
+{
+  "workflow_run_id": "mock-wfrun-0001",
+  "task_id": "mock-task-0001",
+  "data": {
+    "id": "mock-wfrun-0001",
+    "workflow_id": "mock-workflow-eval",
+    "status": "succeeded",
+    "outputs": {
+      "result_json": "{\"factual_accuracy\":5,\"knowledge_completeness\":4,\"relevance\":5,\"clarity\":4,\"retrieval_quality\":4,\"safety_compliance\":5,\"version_currency\":5,\"terminology_norm\":5,\"knowledge_gap\":false,\"hallucination_risk\":\"无\",\"annotation_label\":\"正确\",\"error_cause\":\"无\",\"judge_reason\":\"回答与检索片段一致，覆盖主要要点，安全前置条件完整。\",\"missing_knowledge\":[],\"improvement_suggestions\":[\"补充条款编号与资料版本号的引用\"]}",
+      "csi": 4.55,
+      "verdict": "优秀",
+      "annotation_label": "正确",
+      "error_cause": "无",
+      "badcase": false
+    },
+    "error": null,
+    "elapsed_time": 3.21,
+    "total_tokens": 2048,
+    "total_steps": 4,
+    "created_at": 1750000000,
+    "finished_at": 1750000003
+  }
+}

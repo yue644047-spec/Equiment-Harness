@@ -1,0 +1,121 @@
+{
+  "note": "演示资产清单（资产契约的权威来源）。图片与视频只登记与检索，不做内容理解。",
+  "assets": [
+    {
+      "asset_id": "AST-IMG-0001",
+      "name": "液压系统原理图",
+      "asset_type": "image",
+      "path": "images\\AST-IMG-0001_液压系统原理图.png",
+      "size": 2020,
+      "fingerprint": "6965888abb725b3a",
+      "doc_no": "HYS-GY-001",
+      "doc_version": "V3.0",
+      "section": "3 工作原理",
+      "page": "12",
+      "figure_no": "图3-1",
+      "chunk_id": "HYS-GY-001-V3.0-2.1.1",
+      "clause_no": "2.1.1",
+      "caption": "图3-1 某型液压举升系统液压系统原理图",
+      "tags": [
+        "原理图",
+        "液压系统",
+        "HYS-1"
+      ],
+      "thumb": "thumbs\\AST-IMG-0001_液压系统原理图.png",
+      "security": "内部"
+    },
+    {
+      "asset_id": "AST-IMG-0002",
+      "name": "液压泵站分解图",
+      "asset_type": "image",
+      "path": "images\\AST-IMG-0002_液压泵站分解图.png",
+      "size": 2026,
+      "fingerprint": "73003b08807158e8",
+      "doc_no": "HYS-WX-003",
+      "doc_version": "V2.0",
+      "section": "4 拆卸与装配",
+      "page": "27",
+      "figure_no": "图4-2",
+      "chunk_id": "HYS-WX-003-V2.0-3.1.8",
+      "clause_no": "3.1.8",
+      "caption": "图4-2 液压泵站分解图（含密封件位置）",
+      "tags": [
+        "分解图",
+        "液压泵站",
+        "维修"
+      ],
+      "thumb": "thumbs\\AST-IMG-0002_液压泵站分解图.png",
+      "security": "内部"
+    },
+    {
+      "asset_id": "AST-IMG-0003",
+      "name": "操作面板示意图",
+      "asset_type": "image",
+      "path": "images\\AST-IMG-0003_操作面板示意图.png",
+      "size": 1987,
+      "fingerprint": "b8ab41b676a9b66b",
+      "doc_no": "HYS-CZ-002",
+      "doc_version": "V4.0",
+      "section": "6 操作步骤",
+      "page": "18",
+      "figure_no": "图6-1",
+      "chunk_id": "HYS-CZ-002-V4.0-1.1.3",
+      "clause_no": "1.1.3",
+      "caption": "图6-1 操作面板按钮与指示灯布置示意",
+      "tags": [
+        "操作面板",
+        "示意",
+        "操作规程"
+      ],
+      "thumb": "thumbs\\AST-IMG-0003_操作面板示意图.png",
+      "security": "内部"
+    },
+    {
+      "asset_id": "AST-IMG-0004",
+      "name": "滤芯堵塞部位示意",
+      "asset_type": "image",
+      "path": "images\\AST-IMG-0004_滤芯堵塞部位示意.png",
+      "size": 1978,
+      "fingerprint": "161151d65622b4df",
+      "doc_no": "HYS-GZ-004",
+      "doc_version": "V1.0",
+      "section": "2 典型故障",
+      "page": "9",
+      "figure_no": "图2-3",
+      "chunk_id": "HYS-GZ-004-V1.0-5.5.2",
+      "clause_no": "5.5.2",
+      "caption": "图2-3 滤芯堵塞常见部位与检查顺序",
+      "tags": [
+        "故障案例",
+        "滤芯",
+        "堵塞"
+      ],
+      "thumb": "thumbs\\AST-IMG-0004_滤芯堵塞部位示意.png",
+      "security": "内部"
+    },
+    {
+      "asset_id": "AST-VID-0001",
+      "name": "举升操作演示录像",
+      "asset_type": "video",
+      "path": "videos\\AST-VID-0001_举升操作演示录像.mp4",
+      "size": 36,
+      "fingerprint": "6a83220893679f7f",
+      "doc_no": "HYS-CZ-002",
+      "doc_version": "V4.0",
+      "section": "2 作业前检查",
+      "page": "",
+      "figure_no": "视频1",
+      "chunk_id": "HYS-CZ-002-V4.0-1.1.1",
+      "clause_no": "1.1.1",
+      "caption": "视频1 举升作业前检查与启动操作演示",
+      "tags": [
+        "操作演示",
+        "视频",
+        "作业前检查"
+      ],
+      "thumb": "",
+      "security": "内部",
+      "duration_seconds": 96
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Dify 问答质量评测服务 —— 依赖说明
+#
+# 【核心依赖：仅 Python 标准库】
+#   urllib.request / json / sqlite3 / csv / argparse / dataclasses / datetime
+#   statistics / re / pathlib / concurrent.futures / hashlib / math
+#   运行要求：Python >= 3.10（已在 Python 3.13.9 上验证）
+#   不需要安装 requests / pandas / python-dotenv / rich / jinja2 / tqdm
+#
+# 【可选依赖：openpyxl】
+#   仅用于 report --format xlsx 导出 Excel；
+#   未安装时自动回退为 CSV，并打印提示，不影响其它功能。
+#   如需启用，取消下一行注释后执行：pip install -r requirements.txt
+# openpyxl>=3.1.0

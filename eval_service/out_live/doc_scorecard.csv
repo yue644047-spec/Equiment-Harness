@@ -1,0 +1,2 @@
+﻿doc_no,title,doc_version,current_version,probes,csi_mean,clauses_total,clauses_probed,coverage_rate,p0,p1,p2,defect_total,defect_density,dqi,ci_low,ci_high,sufficient,top_defects
+HYS-ZL-005,装备技术资料清单与版本台账,V1.0,,2,5.0,31,,,0,0,0,0,0.0,,0.0,0.658,False,

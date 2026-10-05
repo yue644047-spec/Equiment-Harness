@@ -1,0 +1,30 @@
+[Unit]
+Description=Dify Celery Worker
+After=network-online.target postgresql-dify.service redis-dify.service
+Requires=postgresql-dify.service redis-dify.service
+
+[Service]
+Type=simple
+User=dify
+Group=dify
+WorkingDirectory=/opt/dify/api
+EnvironmentFile=/opt/dify/config/dify.env
+Environment=MODE=worker
+Environment=PATH=/opt/dify/python/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/opt/dify/python/bin/python3 -m celery -A celery_entrypoint.celery worker \
+  -P ${CELERY_WORKER_CLASS} \
+  -c ${CELERY_WORKER_AMOUNT} \
+  --max-tasks-per-child ${MAX_TASKS_PER_CHILD} \
+  --loglevel ${LOG_LEVEL} \
+  -Q ${CELERY_QUEUES} \
+  --prefetch-multiplier=${CELERY_PREFETCH_MULTIPLIER}
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=60
+StandardOutput=append:/data/dify/logs/worker.log
+StandardError=append:/data/dify/logs/worker.log
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

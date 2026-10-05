@@ -1,0 +1,21 @@
+[Unit]
+Description=Dify Celery Beat (scheduler)
+After=network-online.target postgresql-dify.service redis-dify.service
+Requires=postgresql-dify.service redis-dify.service
+
+[Service]
+Type=simple
+User=dify
+Group=dify
+WorkingDirectory=/opt/dify/api
+EnvironmentFile=/opt/dify/config/dify.env
+Environment=MODE=beat
+Environment=PATH=/opt/dify/python/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/opt/dify/python/bin/python3 -m celery -A app.celery beat --loglevel ${LOG_LEVEL}
+Restart=always
+RestartSec=5
+StandardOutput=append:/data/dify/logs/beat.log
+StandardError=append:/data/dify/logs/beat.log
+
+[Install]
+WantedBy=multi-user.target

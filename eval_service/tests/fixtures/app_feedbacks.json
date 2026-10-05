@@ -1,0 +1,110 @@
+{
+  "limit": 100,
+  "has_more": false,
+  "data": [
+    {
+      "id": "fb-3001",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1001",
+      "message_id": "msg-2001",
+      "rating": "like",
+      "content": "",
+      "from_source": "api",
+      "from_end_user_id": "enduser-zhang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750007260,
+      "updated_at": 1750007260
+    },
+    {
+      "id": "fb-3002",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1001",
+      "message_id": "msg-2003",
+      "rating": "like",
+      "content": "力矩分三次拧紧的说明希望能配一张示意图",
+      "from_source": "api",
+      "from_end_user_id": "enduser-zhang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750093630,
+      "updated_at": 1750093630
+    },
+    {
+      "id": "fb-3003",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1001",
+      "message_id": "msg-2005",
+      "rating": "like",
+      "content": "虽然没有收录，但把缺口说清楚了，没有编造",
+      "from_source": "api",
+      "from_end_user_id": "enduser-zhang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750144060,
+      "updated_at": 1750144060
+    },
+    {
+      "id": "fb-3004",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1002",
+      "message_id": "msg-2006",
+      "rating": "like",
+      "content": "排查顺序和液位计读数都很清楚",
+      "from_source": "api",
+      "from_end_user_id": "enduser-li",
+      "from_account_id": "acct-se-02",
+      "created_at": 1750010890,
+      "updated_at": 1750010890
+    },
+    {
+      "id": "fb-3005",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1002",
+      "message_id": "msg-2009",
+      "rating": "dislike",
+      "content": "现场按 300 工作小时执行是错的，应引用现行有效的 V4.0",
+      "from_source": "api",
+      "from_end_user_id": "enduser-li",
+      "from_account_id": "acct-se-02",
+      "created_at": 1750133260,
+      "updated_at": 1750133260
+    },
+    {
+      "id": "fb-3006",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1002",
+      "message_id": "msg-2008",
+      "rating": "dislike",
+      "content": "力矩值与维修规程对不上，规程写的是 90 N·m",
+      "from_source": "api",
+      "from_end_user_id": "enduser-li",
+      "from_account_id": "acct-se-02",
+      "created_at": 1750108045,
+      "updated_at": 1750108045
+    },
+    {
+      "id": "fb-3007",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1003",
+      "message_id": "msg-2012",
+      "rating": "like",
+      "content": "",
+      "from_source": "api",
+      "from_end_user_id": "enduser-wang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750039660,
+      "updated_at": 1750039660
+    },
+    {
+      "id": "fb-3008",
+      "app_id": "app-chat-hys",
+      "conversation_id": "conv-1003",
+      "message_id": "msg-2013",
+      "rating": "dislike",
+      "content": "PLC 品牌与固件升级方式在资料里查不到，疑似编造",
+      "from_source": "api",
+      "from_end_user_id": "enduser-wang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750072070,
+      "updated_at": 1750072070
+    }
+  ]
+}

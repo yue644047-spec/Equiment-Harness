@@ -1,0 +1,22 @@
+[Unit]
+Description=Dify Plugin Daemon
+After=network-online.target postgresql-dify.service redis-dify.service dify-api.service
+Requires=postgresql-dify.service redis-dify.service
+
+[Service]
+Type=simple
+User=dify
+Group=dify
+WorkingDirectory=/opt/dify/plugin-daemon
+EnvironmentFile=/opt/dify/config/plugin-daemon.env
+Environment=PATH=/opt/dify/python/bin:/usr/local/bin:/usr/bin:/bin
+# 先执行数据库迁移，再启动守护进程（与官方 docker CMD 一致）
+ExecStartPre=/opt/dify/plugin-daemon/commandline migrate
+ExecStart=/opt/dify/plugin-daemon/main
+Restart=always
+RestartSec=5
+StandardOutput=append:/data/dify/logs/plugin-daemon.log
+StandardError=append:/data/dify/logs/plugin-daemon.log
+
+[Install]
+WantedBy=multi-user.target

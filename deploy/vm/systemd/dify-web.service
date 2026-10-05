@@ -1,0 +1,24 @@
+[Unit]
+Description=Dify Web (Next.js)
+After=network-online.target dify-api.service
+Wants=dify-api.service
+
+[Service]
+Type=simple
+User=dify
+Group=dify
+WorkingDirectory=/opt/dify/web
+EnvironmentFile=/opt/dify/config/dify.env
+Environment=NODE_ENV=production
+Environment=DEPLOY_ENV=PRODUCTION
+Environment=PORT=3000
+Environment=NEXT_TELEMETRY_DISABLED=1
+ExecStart=/bin/bash /opt/dify/web/start.sh
+Restart=always
+RestartSec=5
+StandardOutput=append:/data/dify/logs/web.log
+StandardError=append:/data/dify/logs/web.log
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

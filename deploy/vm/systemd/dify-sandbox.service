@@ -1,0 +1,21 @@
+[Unit]
+Description=Dify Code Sandbox
+After=network-online.target
+
+[Service]
+Type=simple
+# 沙箱需要 root 才能设置 seccomp 与资源限制，这是官方设计
+User=root
+WorkingDirectory=/opt/dify/sandbox
+Environment=SANDBOX_DIR=/opt/dify/sandbox
+# 让沙箱能通过 PATH 找到 node（离线包用 musl 版 node，见 install.sh 生成的包装脚本）
+Environment=PATH=/opt/dify/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/bin/bash /opt/dify/sandbox/start.sh
+Restart=always
+RestartSec=5
+StandardOutput=append:/data/dify/logs/sandbox.log
+StandardError=append:/data/dify/logs/sandbox.log
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

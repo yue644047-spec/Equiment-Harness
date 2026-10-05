@@ -1,0 +1,724 @@
+app:
+  description: 多模态语料标注与问答对抽取。输入已解析的语料正文或原始文件（pdf/docx/xlsx 走原生文档提取器；图片/视频先由多模态解析服务转成带时间轴的文本），由大模型抽取问答对并自动打标，代码节点做质检、统计与人工复核表生成。
+  icon: 🏷️
+  icon_background: '#D5F5F6'
+  icon_type: emoji
+  mode: workflow
+  name: 多模态语料标注与问答对抽取
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: '0.7.0'
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types: []
+      allowed_file_upload_methods:
+        - local_file
+        - remote_url
+      enabled: false
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+      number_limits: 3
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: start
+          targetType: if-else
+        id: 3700000000001-source-3700000000002-target
+        selected: false
+        source: '3700000000001'
+        sourceHandle: source
+        target: '3700000000002'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: document-extractor
+        id: 3700000000002-true-3700000000003-target
+        selected: false
+        source: '3700000000002'
+        sourceHandle: 'true'
+        target: '3700000000003'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: variable-aggregator
+        id: 3700000000002-false-3700000000004-target
+        selected: false
+        source: '3700000000002'
+        sourceHandle: 'false'
+        target: '3700000000004'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: document-extractor
+          targetType: variable-aggregator
+        id: 3700000000003-source-3700000000004-target
+        selected: false
+        source: '3700000000003'
+        sourceHandle: source
+        target: '3700000000004'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: variable-aggregator
+          targetType: llm
+        id: 3700000000004-source-3700000000005-target
+        selected: false
+        source: '3700000000004'
+        sourceHandle: source
+        target: '3700000000005'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: code
+        id: 3700000000005-source-3700000000006-target
+        selected: false
+        source: '3700000000005'
+        sourceHandle: source
+        target: '3700000000006'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: code
+          targetType: end
+        id: 3700000000006-source-3700000000007-target
+        selected: false
+        source: '3700000000006'
+        sourceHandle: source
+        target: '3700000000007'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          desc: 标注输入。二选一即可：直接给已解析的 document_text，或给原始文件由文档提取器解析。图片与视频请先用多模态解析服务转成带时间轴的文本再填入 document_text
+          selected: false
+          title: 开始
+          type: start
+          variables:
+            - label: 语料标题（资料名或视频名）
+              max_length: 255
+              required: true
+              type: text-input
+              variable: doc_title
+            - label: 已解析的语料正文（与文件二选一）
+              max_length: 200000
+              required: false
+              type: paragraph
+              variable: document_text
+            - label: 原始文件（pdf/docx/xlsx 等，与正文二选一）
+              allowed_file_extensions: []
+              allowed_file_types:
+                - document
+              allowed_file_upload_methods:
+                - local_file
+                - remote_url
+              required: false
+              type: file-list
+              variable: source_file
+            - label: 语料模态（text/image/video/mixed）
+              max_length: 32
+              required: false
+              type: text-input
+              variable: modality
+            - label: 业务领域（如 装备保障）
+              max_length: 64
+              required: false
+              type: text-input
+              variable: business_domain
+            - label: 最多抽取问答对数量
+              max_length: 4
+              required: false
+              type: number
+              variable: max_pairs
+        height: 260
+        id: '3700000000001'
+        position:
+          x: 60
+          y: 300
+        positionAbsolute:
+          x: 60
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          _targetBranches:
+            - id: 'true'
+              name: IF
+            - id: 'false'
+              name: ELSE
+          cases:
+            - case_id: 'true'
+              conditions:
+                - comparison_operator: empty
+                  id: 3700000000002-cond-1
+                  value: ''
+                  varType: string
+                  variable_selector:
+                    - '3700000000001'
+                    - document_text
+              id: 'true'
+              logical_operator: and
+          desc: 未提供正文时走文档提取器解析原始文件；已提供正文则直接进入汇总
+          selected: false
+          title: 是否已有解析正文
+          type: if-else
+        height: 120
+        id: '3700000000002'
+        position:
+          x: 380
+          y: 300
+        positionAbsolute:
+          x: 380
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: Dify 原生文档提取器，支持 pdf/docx/xlsx/md/txt/html/csv 等，输出纯文本
+          selected: false
+          title: 文档提取
+          type: document-extractor
+          variable_selector:
+            - '3700000000001'
+            - source_file
+        height: 120
+        id: '3700000000003'
+        position:
+          x: 700
+          y: 180
+        positionAbsolute:
+          x: 700
+          y: 180
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: 把两条分支的正文汇总为一个字符串变量，供后续 LLM 使用
+          output_type: string
+          selected: false
+          title: 汇总正文
+          type: variable-aggregator
+          variables:
+            - - '3700000000003'
+              - text
+            - - '3700000000001'
+              - document_text
+        height: 120
+        id: '3700000000004'
+        position:
+          x: 1020
+          y: 300
+        positionAbsolute:
+          x: 1020
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 从语料中抽取问答对，并逐条打上装备域标注标签与错误归因
+          memory:
+            query_prompt_template: ''
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: false
+              size: 10
+          model:
+            completion_params:
+              temperature: 0.2
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 3700000000005-prompt-system
+              role: system
+              text: |
+                你是装备技术资料语料标注员，负责把语料转换为高质量的问题-答案对并打标。
+                你必须只输出一个 JSON 对象，不要输出任何解释文字、不要用代码块包裹。
+
+                输出格式：
+                {
+                  "qa_pairs": [
+                    {
+                      "question": "用户会怎么问（口语化、贴近真实提问，不要照抄原文标题）",
+                      "answer": "依据语料给出的准确回答，保留原文的数值、单位、编号与条款号",
+                      "source_anchor": "该问答在语料中的定位（章节号/小节标题/时间戳）",
+                      "doc_no": "资料编号（形如 HYS-WX-003，取自语料头部版本台账）",
+                      "doc_version": "资料版本号（形如 V2.0，取自语料头部版本台账）",
+                      "modality": "text/image/video",
+                      "annotation_label": "优秀/良好/待改进/不合格",
+                      "error_cause": "见下",
+                      "evidence": "支撑该答案的原文片段（不超过 80 字，必须原样摘录）"
+                    }
+                  ],
+                  "obsolete_warnings": ["语料中出现的疑似作废版本数值或前后矛盾之处"],
+                  "stats": {"total": 0, "by_modality": {}, "by_label": {}}
+                }
+
+                抽取纪律：
+                1. 只从给定语料中抽取，禁止引入语料之外的知识；语料没写的参数绝不补全。
+                2. 数值、单位、资料编号、版本号、条款号必须与原文完全一致，不得改写或换算。
+                3. 涉及安全的内容（安全前置条件、禁止事项、应急处置）必须完整保留，不得为了简洁而删减。
+                4. 同一个主题出现多个版本时，以现行有效版本为准，并把旧版本数值写入 obsolete_warnings。
+                4.1 每条问答对必须带 doc_no 与 doc_version（取自语料头部的资料编号与版本号），
+                    这是后续「按资料聚合质量缺陷」的锚点，缺失视为不合格输出。
+                5. 图片与视频类语料：问题要围绕画面与画面中的操作步骤设计，答案要说明依据的是哪一帧或哪个时间段的画面描述。
+                6. error_cause 从以下 14 项中选一项，正常语料填「无」：
+                   无、知识库缺失、检索未命中、分块不当、提示词缺陷、模型能力不足、幻觉编造、
+                   知识过期、版本失效、问题歧义、型号适配错误、术语不统一、安全警示缺失、跨文档冲突。
+                7. 抽不出问答对时，qa_pairs 返回空数组，并在 obsolete_warnings 中说明原因。
+            - id: 3700000000005-prompt-user
+              role: user
+              text: |
+                【业务领域】
+                {{#3700000000001.business_domain#}}
+
+                【语料标题】
+                {{#3700000000001.doc_title#}}
+
+                【语料模态】
+                {{#3700000000001.modality#}}
+
+                【最多抽取条数】
+                {{#3700000000001.max_pairs#}}
+
+                【语料正文】
+                {{#3700000000004.output#}}
+
+                请输出 JSON。
+          selected: false
+          title: 问答对抽取与标注
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '3700000000005'
+        position:
+          x: 1340
+          y: 300
+        positionAbsolute:
+          x: 1340
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          code: |
+            import json
+            import re
+
+            MAX_PAIRS_DEFAULT = 50
+            VALID_LABELS = ("优秀", "良好", "待改进", "不合格")
+            VALID_CAUSES = (
+                "无", "知识库缺失", "检索未命中", "分块不当", "提示词缺陷", "模型能力不足",
+                "幻觉编造", "知识过期", "版本失效", "问题歧义", "型号适配错误", "术语不统一",
+                "安全警示缺失", "跨文档冲突",
+            )
+
+
+            #: 标注标签 -> 质量分（抽取阶段没给 quality_score 时的确定性折算）
+            LABEL_QUALITY = {"优秀": 5, "良好": 4, "待改进": 2, "不合格": 1}
+            #: 安全类关键词：命中即强制人工复核（安全条款不得未经确认入库）
+            SAFETY_KEYWORDS = ("安全", "禁止", "警示", "泄压", "挂牌", "断电", "应急处置")
+            DOC_RE = re.compile(r"(HYS-[A-Z]{2}-\d{3})")
+            VER_RE = re.compile(r"(V\d+(?:\.\d+)?)")
+            #: 已作废版本中的数值：语料中出现即必须在入库前确认，避免作废值进入知识库
+            OBSOLETE_PATTERNS = {
+                "300 工作小时": "滤芯更换周期（HYS-CZ-002 V3.0 作废值，现行 V4.0 已修订为 500 工作小时）",
+                "14 MPa": "额定工作压力（HYS-GY-001 V2.0 作废值，现行 V3.0 已修订为 16 MPa）",
+            }
+
+
+            def to_int(value, default=0, low=None, high=None):
+                try:
+                    num = int(round(float(value)))
+                except Exception:
+                    num = default
+                if low is not None:
+                    num = max(low, num)
+                if high is not None:
+                    num = min(high, num)
+                return num
+
+
+            def strip_reasoning(raw):
+                # 推理型模型会把思考过程放在 <think>…</think>（或 <!--dify-deepseek-reasoning-->）里，
+                # 且思考中常会复述 schema（形如 {"text":3}），必须先剥掉再找 JSON，否则会锁到错误的括号。
+                text = str(raw or "")
+                close = text.rfind("</think>")
+                if close >= 0:
+                    text = text[close + len("</think>"):]
+                text = text.replace("<!--dify-deepseek-reasoning-->", "")
+                return text.strip()
+
+
+            def extract_json(raw):
+                # 从剥掉思考段后的文本里找第一个能解析成对象的 {...}
+                text = strip_reasoning(raw)
+                end = text.rfind("}")
+                if end < 0:
+                    return {}
+                for idx, ch in enumerate(text):
+                    if ch != "{":
+                        continue
+                    candidate = text[idx:end + 1]
+                    for cand in (candidate, re.sub(r",\s*([\]}])", r"\1", candidate)):
+                        try:
+                            data = json.loads(cand)
+                        except Exception:
+                            continue
+                        if isinstance(data, dict):
+                            return data
+                return {}
+
+
+            def obsolete_warnings_of(rows, extra=None):
+                """扫描残留的作废版本数值，并合并抽取阶段给出的告警。"""
+                text = " ".join(
+                    str(r.get("answer") or "") + str(r.get("source_quote") or "") for r in rows
+                )
+                found = [
+                    "语料中出现已作废版本数值「%s」：%s" % (key, note)
+                    for key, note in OBSOLETE_PATTERNS.items() if key in text
+                ]
+                for item in (extra or []):
+                    text_item = str(item).strip()
+                    if text_item and text_item not in found:
+                        found.append(text_item)
+                return found
+
+
+            def main(llm_output: str, doc_title: str, modality: str, max_pairs) -> dict:
+                data = extract_json(llm_output)
+                raw_pairs = data.get("qa_pairs")
+                if not isinstance(raw_pairs, list):
+                    raw_pairs = []
+
+                limit = MAX_PAIRS_DEFAULT
+                try:
+                    if max_pairs is not None and str(max_pairs).strip() != "":
+                        limit = max(1, int(float(max_pairs)))
+                except Exception:
+                    limit = MAX_PAIRS_DEFAULT
+
+                pairs = []
+                dropped = []
+                seen = set()
+                for item in raw_pairs:
+                    if not isinstance(item, dict):
+                        continue
+                    question = str(item.get("question") or "").strip()
+                    answer = str(item.get("answer") or "").strip()
+                    if not question or not answer:
+                        dropped.append({"reason": "问题或答案为空", "question": question[:60]})
+                        continue
+                    if len(question) > 500 or len(answer) > 4000:
+                        dropped.append({"reason": "超长", "question": question[:60]})
+                        continue
+                    # 同一知识点只保留一条（按去空白小写的问题去重）
+                    key = re.sub(r"\s+", "", question).lower()
+                    if key in seen:
+                        dropped.append({"reason": "重复问题（同一知识点只保留一条）", "question": question[:60]})
+                        continue
+                    seen.add(key)
+
+                    label = str(item.get("annotation_label") or "良好")
+                    if label not in VALID_LABELS:
+                        label = "良好"
+                    cause = str(item.get("error_cause") or "无")
+                    if cause not in VALID_CAUSES:
+                        cause = "无"
+                    source_anchor = str(item.get("source_anchor") or "")
+                    evidence = str(item.get("evidence") or item.get("source_quote") or "")
+                    # 质量分：优先取抽取结果，缺失时按标注标签折算（优秀5/良好4/待改进2/不合格1）
+                    quality = to_int(item.get("quality_score"), LABEL_QUALITY.get(label, 3), 1, 5)
+
+                    params = item.get("param_values")
+                    if not isinstance(params, list):
+                        params = []
+                    params = [str(v).strip() for v in params if str(v).strip()]
+                    text_for_safety = " ".join([question, answer, source_anchor, evidence])
+                    safety_related = bool(item.get("safety_related")) or any(
+                        kw in text_for_safety for kw in SAFETY_KEYWORDS
+                    )
+                    need_review = item.get("need_human_review")
+                    if not isinstance(need_review, bool):
+                        need_review = quality < 4
+                    reason = str(item.get("review_reason") or "").strip()
+                    if not reason and quality < 4:
+                        reason = "质量分低于 4，建议人工复核"
+                    if (safety_related or params) and not need_review:
+                        # 安全条款与技术参数必须经技术专家确认后才能入库
+                        need_review = True
+                        reason = reason or "涉及安全条款或技术参数，须技术专家确认"
+
+                    # 资料编号与版本：优先取抽取结果，缺失时从依据原文里正则回填（治理口径锚定台账）
+                    doc_no = str(item.get("doc_no") or "").strip()
+                    doc_version = str(item.get("doc_version") or "").strip()
+                    if not doc_no:
+                        m = DOC_RE.search(text_for_safety)
+                        doc_no = m.group(1) if m else ""
+                    if not doc_version:
+                        m = VER_RE.search(text_for_safety)
+                        doc_version = m.group(1) if m else ""
+
+                    pairs.append({
+                        "question": question,
+                        "answer": answer,
+                        "question_type": str(item.get("question_type") or ""),
+                        "material_type": str(item.get("material_type") or (modality or "text")),
+                        "difficulty": str(item.get("difficulty") or ""),
+                        "keywords": item.get("keywords") if isinstance(item.get("keywords"), list) else [],
+                        "source_anchor": source_anchor,
+                        "source_quote": evidence,
+                        "evidence": evidence,
+                        "modality": str(item.get("modality") or (modality or "text")),
+                        "param_values": params,
+                        "safety_related": safety_related,
+                        "doc_no": doc_no,
+                        "doc_version": doc_version,
+                        "annotation_label": label,
+                        "error_cause": cause,
+                        "quality_score": quality,
+                        "need_human_review": need_review,
+                        "review_reason": reason,
+                        "review_status": "待复核",
+                        "doc_title": str(doc_title or ""),
+                    })
+
+                # 高质量问答对优先入库（稳定排序）
+                pairs.sort(key=lambda row: row["quality_score"], reverse=True)
+                pairs = pairs[:limit]
+
+                by_label = {}
+                by_modality = {}
+                for p in pairs:
+                    by_label[p["annotation_label"]] = by_label.get(p["annotation_label"], 0) + 1
+                    by_modality[p["modality"]] = by_modality.get(p["modality"], 0) + 1
+
+                raw_warnings = data.get("obsolete_warnings")
+                if not isinstance(raw_warnings, list):
+                    raw_warnings = []
+                warnings = obsolete_warnings_of(pairs, raw_warnings)
+                gaps = data.get("coverage_gaps")
+                if not isinstance(gaps, list):
+                    gaps = []
+                coverage_gaps = [str(g) for g in gaps if str(g).strip()] + warnings
+
+                jsonl = "\n".join(json.dumps(p, ensure_ascii=False) for p in pairs)
+
+                lines = [
+                    "# 语料标注人工复核表",
+                    "",
+                    "- 语料标题：" + str(doc_title or ""),
+                    "- 模态：" + str(modality or "text"),
+                    "- 抽取条数：" + str(len(pairs)),
+                    "- 标签分布：" + json.dumps(by_label, ensure_ascii=False),
+                    "",
+                    "| # | 问题 | 答案（截断） | 出处 | 模态 | 标签 | 归因 | 复核结论 |",
+                    "| --- | --- | --- | --- | --- | --- | --- | --- |",
+                ]
+                for idx, p in enumerate(pairs, 1):
+                    ans = p["answer"].replace("|", "／").replace("\n", " ")
+                    if len(ans) > 60:
+                        ans = ans[:60] + "…"
+                    q = p["question"].replace("|", "／").replace("\n", " ")
+                    if len(q) > 40:
+                        q = q[:40] + "…"
+                    lines.append("| {0} | {1} | {2} | {3} | {4} | {5} | {6} |  |".format(
+                        idx, q, ans, p["source_anchor"], p["modality"], p["annotation_label"], p["error_cause"]))
+                if warnings:
+                    lines += ["", "## 疑似作废版本 / 矛盾提示", ""]
+                    lines += ["- " + w for w in warnings]
+                review_markdown = "\n".join(lines)
+
+                avg_quality = round(sum(p["quality_score"] for p in pairs) / float(len(pairs)), 2) if pairs else 0.0
+                stats = {
+                    "total": len(pairs),
+                    "dropped": len(dropped),
+                    "by_label": by_label,
+                    "by_modality": by_modality,
+                    "need_review": sum(1 for p in pairs if p["need_human_review"]),
+                    "param_related": sum(1 for p in pairs if p["param_values"]),
+                    "safety_related": sum(1 for p in pairs if p["safety_related"]),
+                    "avg_quality": avg_quality,
+                    "obsolete_warnings": len(warnings),
+                    "coverage_gaps": len(coverage_gaps),
+                }
+
+                return {
+                    "jsonl": jsonl,
+                    "qa_count": len(pairs),
+                    "qa_pairs": pairs,
+                    "coverage_gaps": coverage_gaps,
+                    "stats_json": json.dumps(stats, ensure_ascii=False),
+                    "review_markdown": review_markdown,
+                    "obsolete_warnings": warnings,
+                    "dropped_json": json.dumps(dropped, ensure_ascii=False),
+                }
+          code_language: python3
+          desc: 解析标注结果，做字段级质检（丢弃空问题/超长条目）、统计标签与模态分布，生成 jsonl 与人工复核表
+          outputs:
+            jsonl:
+              type: string
+            qa_count:
+              type: number
+            stats_json:
+              type: string
+            review_markdown:
+              type: string
+            obsolete_warnings:
+              type: array[string]
+            coverage_gaps:
+              type: array[string]
+            qa_pairs:
+              type: array[object]
+            dropped_json:
+              type: string
+          selected: false
+          title: 解析与质检
+          type: code
+          variables:
+            - value_selector:
+                - '3700000000005'
+                - text
+              variable: llm_output
+            - value_selector:
+                - '3700000000001'
+                - doc_title
+              variable: doc_title
+            - value_selector:
+                - '3700000000001'
+                - modality
+              variable: modality
+            - value_selector:
+                - '3700000000001'
+                - max_pairs
+              variable: max_pairs
+        height: 180
+        id: '3700000000006'
+        position:
+          x: 1660
+          y: 300
+        positionAbsolute:
+          x: 1660
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: 输出 jsonl 问答对、质检统计、人工复核表与作废版本告警
+          outputs:
+            - value_selector:
+                - '3700000000006'
+                - jsonl
+              value_type: string
+              variable: jsonl
+            - value_selector:
+                - '3700000000006'
+                - qa_count
+              value_type: number
+              variable: qa_count
+            - value_selector:
+                - '3700000000006'
+                - stats_json
+              value_type: string
+              variable: stats_json
+            - value_selector:
+                - '3700000000006'
+                - review_markdown
+              value_type: string
+              variable: review_markdown
+            - value_selector:
+                - '3700000000006'
+                - obsolete_warnings
+              value_type: string
+              variable: obsolete_warnings
+            - value_selector:
+                - '3700000000006'
+                - dropped_json
+              value_type: string
+              variable: dropped_json
+          selected: false
+          title: 结束
+          type: end
+        height: 180
+        id: '3700000000007'
+        position:
+          x: 1980
+          y: 300
+        positionAbsolute:
+          x: 1980
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.6

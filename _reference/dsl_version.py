@@ -1,0 +1,2 @@
+﻿CURRENT_APP_DSL_VERSION = "0.7.0"
+

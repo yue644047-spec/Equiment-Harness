@@ -1,0 +1,132 @@
+{
+  "滤芯更换周期": {
+    "query": "滤芯更换周期",
+    "records": [
+      {
+        "segment": {
+          "id": "seg-2001",
+          "position": 1,
+          "document_id": "doc-HYS-WX-003-2001",
+          "content": "【HYS-WX-003 V2.0 3.1.9】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准；油液污染严重或压差报警时应提前更换。更换油箱与滤芯 HYD-TK-05 的滤芯。",
+          "answer": null,
+          "word_count": 80,
+          "tokens": 110,
+          "keywords": [
+            "滤芯",
+            "更换周期",
+            "工作小时"
+          ],
+          "index_node_hash": "hash-2001",
+          "hit_count": 3,
+          "enabled": true,
+          "disabled_at": null,
+          "disabled_by": null,
+          "status": "completed",
+          "created_by": "acct-se-01",
+          "created_at": 1750000000,
+          "indexing_at": 1750000000,
+          "completed_at": 1750000005,
+          "error": null
+        },
+        "score": 0.94,
+        "child_chunks": []
+      },
+      {
+        "segment": {
+          "id": "seg-2002",
+          "position": 2,
+          "document_id": "doc-HYS-CZ-002-2001",
+          "content": "【HYS-CZ-002 V4.0 7.2.7】滤芯更换周期为每 500 工作小时或 12 个月，以先到为准。",
+          "answer": null,
+          "word_count": 42,
+          "tokens": 58,
+          "keywords": [
+            "滤芯",
+            "操作规程"
+          ],
+          "index_node_hash": "hash-2002",
+          "hit_count": 2,
+          "enabled": true,
+          "disabled_at": null,
+          "disabled_by": null,
+          "status": "completed",
+          "created_by": "acct-se-01",
+          "created_at": 1750000000,
+          "indexing_at": 1750000000,
+          "completed_at": 1750000005,
+          "error": null
+        },
+        "score": 0.85,
+        "child_chunks": []
+      }
+    ]
+  },
+  "溢流阀开启压力": {
+    "query": "溢流阀开启压力",
+    "records": [
+      {
+        "segment": {
+          "id": "seg-2001",
+          "position": 1,
+          "document_id": "doc-HYS-WX-003-2003",
+          "content": "【HYS-WX-003 V2.0 4.2】溢流阀 HYD-RV-04 开启压力标准值为 17.5 MPa，二级保养时检测。检测条件：油温在 15 ℃ ~ 65 ℃ 范围内，系统运行正常，压力表在检定有效期内。判定：开启压力为 17.5 MPa 时为合格；调整过程中系统压力不得超过最高允许压力 18 MPa。",
+          "answer": null,
+          "word_count": 150,
+          "tokens": 200,
+          "keywords": [
+            "溢流阀",
+            "开启压力",
+            "二级保养"
+          ],
+          "index_node_hash": "hash-2003",
+          "hit_count": 4,
+          "enabled": true,
+          "disabled_at": null,
+          "disabled_by": null,
+          "status": "completed",
+          "created_by": "acct-se-01",
+          "created_at": 1750000000,
+          "indexing_at": 1750000000,
+          "completed_at": 1750000005,
+          "error": null
+        },
+        "score": 0.95,
+        "child_chunks": []
+      }
+    ]
+  },
+  "油缸缸盖螺栓力矩": {
+    "query": "油缸缸盖螺栓力矩",
+    "records": [
+      {
+        "segment": {
+          "id": "seg-2001",
+          "position": 1,
+          "document_id": "doc-HYS-WX-003-2004",
+          "content": "【HYS-WX-003 V2.0 5.3】举升油缸 HYD-CY-02 左右各一，缸盖螺栓规格为 M16；缸盖螺栓 M16 拧紧力矩为 180 N·m；拧紧必须分三次进行，顺序为：60 N·m → 120 N·m → 180 N·m；每次拧紧均按对角交叉顺序进行，不得一次拧至 180 N·m。",
+          "answer": null,
+          "word_count": 165,
+          "tokens": 215,
+          "keywords": [
+            "油缸",
+            "缸盖螺栓",
+            "力矩"
+          ],
+          "index_node_hash": "hash-2004",
+          "hit_count": 5,
+          "enabled": true,
+          "disabled_at": null,
+          "disabled_by": null,
+          "status": "completed",
+          "created_by": "acct-se-01",
+          "created_at": 1750000000,
+          "indexing_at": 1750000000,
+          "completed_at": 1750000005,
+          "error": null
+        },
+        "score": 0.96,
+        "child_chunks": []
+      }
+    ]
+  }
+}

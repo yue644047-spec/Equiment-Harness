@@ -1,0 +1,1305 @@
+app:
+  description: 多模态智能问答助手。支持文本、图片、视频多模态输入与四类意图分流：知识库智能检索问答（带文档出处）、数据库交互查询（NL2SQL）、多模态内容理解（图片直读 + 解析服务）、满意度评价采集（主观 3 项指标 + 改进建议）。
+  icon: 💬
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 多模态智能问答助手（知识库 + 数据库 + 多模态 + 满意度采集）
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: '0.7.0'
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+        - .pdf
+        - .docx
+        - .xlsx
+        - .md
+        - .txt
+        - .jpg
+        - .jpeg
+        - .png
+        - .mp4
+        - .avi
+        - .mp3
+        - .wav
+      allowed_file_types:
+        - document
+        - image
+        - video
+        - audio
+      allowed_file_upload_methods:
+        - local_file
+        - remote_url
+      enabled: true
+      image:
+        enabled: true
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+      number_limits: 5
+    opening_statement: |
+      你好，我是多模态智能问答助手 👋
+      你可以：
+      1. 提问装备原理、技术参数、操作规程、维修规程、故障排除等问题，我会基于知识库作答并标注资料出处；
+      2. 查询装备台账、履历、检修记录等结构化数据，我会查数据库后回答；
+      3. 直接上传图片，或上传视频，我会解析画面内容后针对性地回答；
+      4. 对回答打分：直接发送「#评价 满意度5 有用性4 体验感4 建议……」即可。
+      涉及操作与维修的问题，我会完整给出安全前置条件与禁止事项。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+      - 这套知识库覆盖了哪些装备技术资料
+      - 滤芯多久需要更换一次
+      - 液压系统额定压力是多少
+      - 最近三个月有哪些设备到了检修周期
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: start
+          targetType: question-classifier
+        id: 1700000000001-source-1700000000002-target
+        selected: false
+        source: '1700000000001'
+        sourceHandle: source
+        target: '1700000000002'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: knowledge-retrieval
+        id: 1700000000002-1-1700000000003-target
+        selected: false
+        source: '1700000000002'
+        sourceHandle: '1'
+        target: '1700000000003'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: http-request
+        id: 1700000000002-2-1700000000009-target
+        selected: false
+        source: '1700000000002'
+        sourceHandle: '2'
+        target: '1700000000009'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: http-request
+        id: 1700000000002-3-1700000000015-target
+        selected: false
+        source: '1700000000002'
+        sourceHandle: '3'
+        target: '1700000000015'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: parameter-extractor
+        id: 1700000000002-4-1700000000021-target
+        selected: false
+        source: '1700000000002'
+        sourceHandle: '4'
+        target: '1700000000021'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: knowledge-retrieval
+          targetType: if-else
+        id: 1700000000003-source-1700000000004-target
+        selected: false
+        source: '1700000000003'
+        sourceHandle: source
+        target: '1700000000004'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000004-true-1700000000007-target
+        selected: false
+        source: '1700000000004'
+        sourceHandle: 'true'
+        target: '1700000000007'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000004-false-1700000000005-target
+        selected: false
+        source: '1700000000004'
+        sourceHandle: 'false'
+        target: '1700000000005'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000005-source-1700000000006-target
+        selected: false
+        source: '1700000000005'
+        sourceHandle: source
+        target: '1700000000006'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000007-source-1700000000008-target
+        selected: false
+        source: '1700000000007'
+        sourceHandle: source
+        target: '1700000000008'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: if-else
+        id: 1700000000009-source-1700000000010-target
+        selected: false
+        source: '1700000000009'
+        sourceHandle: source
+        target: '1700000000010'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000010-true-1700000000011-target
+        selected: false
+        source: '1700000000010'
+        sourceHandle: 'true'
+        target: '1700000000011'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000010-false-1700000000013-target
+        selected: false
+        source: '1700000000010'
+        sourceHandle: 'false'
+        target: '1700000000013'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000011-source-1700000000012-target
+        selected: false
+        source: '1700000000011'
+        sourceHandle: source
+        target: '1700000000012'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000013-source-1700000000014-target
+        selected: false
+        source: '1700000000013'
+        sourceHandle: source
+        target: '1700000000014'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: http-request
+          targetType: if-else
+        id: 1700000000015-source-1700000000016-target
+        selected: false
+        source: '1700000000015'
+        sourceHandle: source
+        target: '1700000000016'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000016-true-1700000000017-target
+        selected: false
+        source: '1700000000016'
+        sourceHandle: 'true'
+        target: '1700000000017'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: if-else
+          targetType: llm
+        id: 1700000000016-false-1700000000019-target
+        selected: false
+        source: '1700000000016'
+        sourceHandle: 'false'
+        target: '1700000000019'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000017-source-1700000000018-target
+        selected: false
+        source: '1700000000017'
+        sourceHandle: source
+        target: '1700000000018'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1700000000019-source-1700000000020-target
+        selected: false
+        source: '1700000000019'
+        sourceHandle: source
+        target: '1700000000020'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: parameter-extractor
+          targetType: template-transform
+        id: 1700000000021-source-1700000000022-target
+        selected: false
+        source: '1700000000021'
+        sourceHandle: source
+        target: '1700000000022'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: template-transform
+          targetType: answer
+        id: 1700000000022-source-1700000000023-target
+        selected: false
+        source: '1700000000022'
+        sourceHandle: source
+        target: '1700000000023'
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          desc: 对话入口。文本走 sys.query，上传的图片/视频/文档走 sys.files
+          selected: false
+          title: 开始
+          type: start
+          variables: []
+        height: 60
+        id: '1700000000001'
+        position:
+          x: 40
+          y: 460
+        positionAbsolute:
+          x: 40
+          y: 460
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          classes:
+            - id: '1'
+              name: 知识库问答
+            - id: '2'
+              name: 数据库查询
+            - id: '3'
+              name: 多模态理解
+            - id: '4'
+              name: 满意度评价
+          desc: 四路分流：知识库检索问答 / 数据库交互查询 / 图片视频理解 / 满意度评价采集
+          instruction: |
+            请判断用户输入属于以下哪一类，只输出类别编号，不要解释。
+            1. 知识库问答：询问装备原理、技术参数、操作规程、维修规程、故障现象与排除方法、
+               术语含义、资料条款等，期望从技术资料里找到答案的问题。
+            2. 数据库查询：询问结构化台账类信息，例如「某型装备一共几台」「哪些设备到了检修周期」
+               「上个月有几次故障」「编号 XXX 的履历」「统计一下各单位的装备数量」等
+               需要对数据表做筛选、计数、排序、汇总的问题。
+            3. 多模态理解：用户上传了图片或视频，并要求描述画面、判断画面中的状态、
+               说明图中的操作步骤、识别图中的仪表读数或零部件等，属于对媒体内容本身的提问。
+            4. 满意度评价：用户在针对之前的回答打分、点赞点踩或提出改进建议。典型形式：
+               - 以 #评价 开头，后接评分与建议，例如「#评价 满意度5 有用性4 体验感4 希望补充滤芯说明」
+               - 「这个回答不对」「答非所问」「不够详细」「很好，谢谢」等对上一轮回答质量的主观评价
+               - 针对资料本身的反馈，例如「这个参数是作废版本的」「步骤里漏了泄压要求」
+
+            判定优先级：
+            - 若用户上传了图片/视频并且在问画面里的内容，归入第 3 类；
+            - 若问题需要查结构化数据表（数量、时间、统计、清单）而不是查资料原文，归入第 2 类；
+            - 若输入的主要内容是对上一轮回答的评价或改进诉求，归入第 4 类；
+            - 其余寻求资料信息的问题归入第 1 类。
+            注意区分：「这个力矩值是多少」是知识库问答；「这个力矩值写错了」是满意度评价；
+            「一共有几台举升设备」是数据库查询；「这张图里的压力表读数是多少」是多模态理解。
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 64
+              temperature: 0
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          query_variable_selector:
+            - sys
+            - query
+          selected: false
+          title: 意图识别
+          topics: []
+          type: question-classifier
+          vision:
+            enabled: false
+        height: 200
+        id: '1700000000002'
+        position:
+          x: 360
+          y: 460
+        positionAbsolute:
+          x: 360
+          y: 460
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          dataset_ids:
+            - 00000000-0000-0000-0000-000000000000
+          desc: 从装备技术资料知识库召回相关片段。top_k=10 系真实文档实测结论（docs/16 ADR-D21）：全集命中 50%→60%、至少命中一条 90%→100%，耗时 0.52s→0.56s；条款密集场景建议同时开启 rerank。导入后请把 dataset_ids 换成你自己的知识库 ID
+          metadata_filtering_mode: disabled
+          multiple_retrieval_config:
+            reranking_enable: false
+            score_threshold: null
+            score_threshold_enabled: false
+            top_k: 10
+          query_attachment_selector: []
+          query_variable_selector:
+            - sys
+            - query
+          retrieval_mode: multiple
+          selected: false
+          title: 知识检索
+          type: knowledge-retrieval
+        height: 96
+        id: '1700000000003'
+        position:
+          x: 680
+          y: 120
+        positionAbsolute:
+          x: 680
+          y: 120
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          _targetBranches:
+            - id: 'true'
+              name: IF
+            - id: 'false'
+              name: ELSE
+          cases:
+            - case_id: 'true'
+              conditions:
+                - comparison_operator: empty
+                  id: 1700000000004-cond-1
+                  value: ''
+                  varType: array[object]
+                  variable_selector:
+                    - '1700000000003'
+                    - result
+              id: 'true'
+              logical_operator: and
+          desc: 判断知识库是否召回内容：IF=召回为空走兜底，ELSE=正常作答
+          selected: false
+          title: 是否召回为空
+          type: if-else
+        height: 120
+        id: '1700000000004'
+        position:
+          x: 1000
+          y: 120
+        positionAbsolute:
+          x: 1000
+          y: 120
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: true
+            variable_selector:
+              - '1700000000003'
+              - result
+          desc: 有知识片段时严格依据片段作答，并标注资料编号与版本号
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 1200
+              temperature: 0.3
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000005-prompt-system
+              role: system
+              text: |
+                你是「装备技术资料智能问答助手」，负责基于装备技术资料知识库准确回答使用、维修与保障人员的问题。
+
+                回答规则（必须严格遵守）：
+                1. 只依据下方【知识片段】中明确出现的信息作答，禁止编造、禁止使用片段之外的推测。
+                2. 若片段信息不足以完整回答问题：先给出已经能确认的部分，再明确写出「以下内容知识库暂未覆盖：……」并列出缺口。
+                3. 涉及技术参数、力矩、周期、温度、压力、负载、编号、条款号时，必须与片段原文完全一致，
+                   不得改写、换算、取整或省略单位；并写明该数值的适用对象与部位。
+                4. 涉及操作、维修、拆装、应急处置的回答，必须完整保留片段中的安全警示与禁止事项，
+                   不得为了回答简洁而删减任何安全条款。
+                5. 术语必须规范，并与术语对照表保持一致；缩略语首次出现时写出中文全称。
+                6. 引用资料时必须写明资料编号与版本号（如 HYS-WX-003 V2.0）。
+                   若片段中同一主题出现多个版本，必须以现行有效版本为准，并主动提示已作废版本不得再使用。
+                7. 回答结构：先用一句话给出结论，再分条列出依据。
+                8. 不要出现「片段」「上下文」「检索结果」等技术词汇，用自然的装备保障业务语气表达。
+                9. 使用简体中文回答。
+            - id: 1700000000005-prompt-user
+              role: user
+              text: |
+                【知识片段】
+                {{#context#}}
+
+                【用户问题】
+                {{#sys.query#}}
+          selected: false
+          title: 基于知识库作答
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '1700000000005'
+        position:
+          x: 1320
+          y: 40
+        positionAbsolute:
+          x: 1320
+          y: 40
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000005.text#}}
+
+            ---
+            💡 如果这个回答有帮助，请点 👍；如果参数、术语、版本引用或安全条款有误，请点 👎，或直接发送：#评价 满意度5 有用性4 体验感4 你的改进建议。你的反馈会用于补充资料并优化回答质量。
+          desc: 输出知识库答案并引导用户评价
+          selected: false
+          title: 回答（知识库）
+          type: answer
+          variables: []
+        height: 140
+        id: '1700000000006'
+        position:
+          x: 1640
+          y: 40
+        positionAbsolute:
+          x: 1640
+          y: 40
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 知识库未召回时如实说明未收录，仅给通用参考并主动规避编造
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 500
+              temperature: 0.3
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000007-prompt-system
+              role: system
+              text: |
+                你是「装备技术资料智能问答助手」。当前知识库中没有检索到与该问题直接相关的内容。
+
+                回答规则（必须严格遵守）：
+                1. 开头必须原样写明：「当前知识库未收录与该问题直接相关的内容。」
+                2. 随后可基于通用原理给出简要参考，但必须紧接一句「以下为通用参考，非知识库内容，请以现行有效的装备技术资料为准。」
+                3. 严禁编造装备的技术参数、力矩值、保养周期、油温油压阈值、负载限值、资料编号、版本号与条款号。
+                4. 涉及操作、维修、应急处置的问题，必须明确提示：「在取得现行有效技术资料前，不得凭推测开展作业。」
+                5. 结尾告诉用户补充哪一类资料（原理 / 操作规程 / 维修规程 / 故障案例，以及期望的资料编号）就能回答该问题。
+                6. 使用简体中文，语气克制、简洁，总长度不超过 200 字。
+            - id: 1700000000007-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#sys.query#}}
+          selected: false
+          title: 知识未覆盖兜底
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '1700000000007'
+        position:
+          x: 1320
+          y: 260
+        positionAbsolute:
+          x: 1320
+          y: 260
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000007.text#}}
+
+            ---
+            💡 这是知识库尚未覆盖的问题。如果确实需要，请点 👎 或发送：#评价 满意度2 有用性2 体验感3 建议补充XXX资料，我们会优先补充相关资料。
+          desc: 输出兜底回答并引导补充知识
+          selected: false
+          title: 回答（未覆盖）
+          type: answer
+          variables: []
+        height: 140
+        id: '1700000000008'
+        position:
+          x: 1640
+          y: 260
+        positionAbsolute:
+          x: 1640
+          y: 260
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          authorization:
+            config: null
+            type: no-auth
+          body:
+            data:
+              - id: body-question
+                key: question
+                type: text
+                value: '{{#sys.query#}}'
+            type: json
+          desc: 调用自建 NL2SQL 查询服务（默认 127.0.0.1:8081）。该服务负责表结构提示、SQL 生成与只读校验。部署后请把 url 改成实际地址
+          headers: 'Content-Type: application/json'
+          method: post
+          params: ''
+          retry_config:
+            max_retries: 2
+            retry_enabled: true
+            retry_interval: 200
+          selected: false
+          ssl_verify: true
+          timeout:
+            max_connect_timeout: 10
+            max_read_timeout: 300
+            max_write_timeout: 30
+          title: 数据库交互查询（NL2SQL）
+          type: http-request
+          url: 'http://127.0.0.1:8081/nl2sql'
+          variables: []
+        height: 160
+        id: '1700000000009'
+        position:
+          x: 680
+          y: 520
+        positionAbsolute:
+          x: 680
+          y: 520
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          _targetBranches:
+            - id: 'true'
+              name: IF
+            - id: 'false'
+              name: ELSE
+          cases:
+            - case_id: 'true'
+              conditions:
+                - comparison_operator: '='
+                  id: 1700000000010-cond-1
+                  value: '200'
+                  varType: number
+                  variable_selector:
+                    - '1700000000009'
+                    - status_code
+              id: 'true'
+              logical_operator: and
+          desc: 判断查询服务是否返回 200：IF=成功进入组织回答，ELSE=走失败兜底
+          selected: false
+          title: 查询是否成功
+          type: if-else
+        height: 120
+        id: '1700000000010'
+        position:
+          x: 1000
+          y: 520
+        positionAbsolute:
+          x: 1000
+          y: 520
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 把数据库返回的结构化结果组织成自然语言回答，并说明查询口径
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 800
+              temperature: 0.2
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000011-prompt-system
+              role: system
+              text: |
+                你是「装备数据查询助手」，负责把数据库查询结果转述成清晰的中文回答。
+
+                回答规则：
+                1. 只依据下方【查询结果】作答，禁止编造任何数据；结果为空时直接说明「未查询到符合条件的记录」。
+                2. 必须复述本次查询的筛选口径（查了什么表、按什么条件筛选、统计口径是什么），让用户能判断结果是否符合预期。
+                3. 数值、单位、时间、编号必须与查询结果完全一致，不得四舍五入或改写。
+                4. 结果条数较多时，先给汇总（总数/分组统计），再列出前 10 条明细。
+                5. 若查询结果里包含 error 字段或 success=false，说明查询失败原因，并给出更明确的提问建议。
+                6. 使用简体中文，先给结论再列明细。
+            - id: 1700000000011-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#sys.query#}}
+
+                【查询结果】
+                {{#1700000000009.body#}}
+          selected: false
+          title: 组织数据库回答
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '1700000000011'
+        position:
+          x: 1320
+          y: 440
+        positionAbsolute:
+          x: 1320
+          y: 440
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000011.text#}}
+
+            ---
+            💡 如果查询口径不对或数据有误，请发送：#评价 满意度2 有用性2 体验感3 你的修正说明。
+          desc: 输出数据库查询回答
+          selected: false
+          title: 回答（数据库）
+          type: answer
+          variables: []
+        height: 140
+        id: '1700000000012'
+        position:
+          x: 1640
+          y: 440
+        positionAbsolute:
+          x: 1640
+          y: 440
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 查询服务不可用或返回非 200 时的兜底说明
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 300
+              temperature: 0.2
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000013-prompt-system
+              role: system
+              text: |
+                你是「装备数据查询助手」。本次数据库查询未能正常完成。
+
+                回答规则：
+                1. 开头原样写明：「本次数据库查询未能正常完成。」
+                2. 用一句话说明返回状态（状态码见下方），不要输出堆栈或技术细节。
+                3. 严禁猜测数据、严禁编造任何数量或记录。
+                4. 给出 2 条可执行的替代建议，例如换一种问法、缩小时间范围、明确装备型号或编号。
+                5. 使用简体中文，总长度不超过 150 字。
+            - id: 1700000000013-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#sys.query#}}
+
+                【返回状态码】
+                {{#1700000000009.status_code#}}
+
+                【返回内容】
+                {{#1700000000009.body#}}
+          selected: false
+          title: 数据库查询失败兜底
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '1700000000013'
+        position:
+          x: 1320
+          y: 660
+        positionAbsolute:
+          x: 1320
+          y: 660
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000013.text#}}
+          desc: 输出数据库查询兜底说明
+          selected: false
+          title: 回答（数据库失败）
+          type: answer
+          variables: []
+        height: 120
+        id: '1700000000014'
+        position:
+          x: 1640
+          y: 660
+        positionAbsolute:
+          x: 1640
+          y: 660
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          authorization:
+            config: null
+            type: no-auth
+          body:
+            data:
+              - id: body-files
+                key: files
+                type: text
+                value: '{{#sys.files#}}'
+              - id: body-question
+                key: question
+                type: text
+                value: '{{#sys.query#}}'
+            type: json
+          desc: 调用自建多模态解析服务（默认 127.0.0.1:8082）：图片走 OCR + 视觉描述，视频走抽帧 + 语音转写 + 关键帧理解，统一返回结构化文本
+          headers: 'Content-Type: application/json'
+          method: post
+          params: ''
+          retry_config:
+            max_retries: 1
+            retry_enabled: true
+            retry_interval: 200
+          selected: false
+          ssl_verify: true
+          timeout:
+            max_connect_timeout: 10
+            max_read_timeout: 900
+            max_write_timeout: 60
+          title: 多模态解析（图片/视频）
+          type: http-request
+          url: 'http://127.0.0.1:8082/parse'
+          variables: []
+        height: 160
+        id: '1700000000015'
+        position:
+          x: 680
+          y: 920
+        positionAbsolute:
+          x: 680
+          y: 920
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          _targetBranches:
+            - id: 'true'
+              name: IF
+            - id: 'false'
+              name: ELSE
+          cases:
+            - case_id: 'true'
+              conditions:
+                - comparison_operator: not empty
+                  id: 1700000000016-cond-1
+                  value: ''
+                  varType: string
+                  variable_selector:
+                    - '1700000000015'
+                    - body
+              id: 'true'
+              logical_operator: and
+          desc: 解析服务是否返回内容：IF=基于解析文本作答，ELSE=直接由视觉模型读图作答
+          selected: false
+          title: 解析是否成功
+          type: if-else
+        height: 120
+        id: '1700000000016'
+        position:
+          x: 1000
+          y: 920
+        positionAbsolute:
+          x: 1000
+          y: 920
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 基于解析服务返回的结构化文本（含时间轴/画面描述/OCR 文字）作答
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 800
+              temperature: 0.2
+              top_p: 1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000017-prompt-system
+              role: system
+              text: |
+                你是「多模态内容理解助手」，负责基于媒体解析结果回答用户关于图片或视频的问题。
+
+                回答规则：
+                1. 只依据下方【解析结果】作答，禁止编造画面中不存在的内容。
+                2. 视频类内容必须给出时间定位（如「第 00:12 处」），图片类给出区域定位（如「画面右侧的仪表」）。
+                3. 若解析结果中出现了仪表读数、铭牌文字、编号、版本号，必须原样引用，不得改写。
+                4. 若解析结果不足以回答问题，明确说明缺什么，并建议用户补充更清晰的图片或指定时间段。
+                5. 涉及操作步骤的画面，要说明画面展示的顺序，并提示「画面仅供参考，实际操作以现行有效技术资料为准」。
+                6. 使用简体中文，先给结论再列依据。
+            - id: 1700000000017-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#sys.query#}}
+
+                【解析结果】
+                {{#1700000000015.body#}}
+          selected: false
+          title: 基于解析结果作答
+          type: llm
+          vision:
+            enabled: false
+        height: 180
+        id: '1700000000017'
+        position:
+          x: 1320
+          y: 840
+        positionAbsolute:
+          x: 1320
+          y: 840
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000017.text#}}
+
+            ---
+            💡 如果画面识别有误或漏看了关键部位，请发送：#评价 满意度2 有用性2 体验感3 你的补充说明。
+          desc: 输出多模态理解回答
+          selected: false
+          title: 回答（多模态）
+          type: answer
+          variables: []
+        height: 140
+        id: '1700000000018'
+        position:
+          x: 1640
+          y: 840
+        positionAbsolute:
+          x: 1640
+          y: 840
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 解析服务不可用时，由视觉模型直接读取用户上传的图片作答（Dify 原生 vision 能力，图片经 sys.files 注入）
+          memory:
+            query_prompt_template: '{{#sys.query#}}'
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: true
+              size: 10
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 600
+              temperature: 0.2
+              top_p: 1
+            mode: chat
+            name: deepseek-v4-flash-vision-exp
+            provider: langgenius/deepseek/deepseek
+          prompt_template:
+            - id: 1700000000019-prompt-system
+              role: system
+              text: |
+                你是「图像理解助手」，用户上传了图片并提出了问题。
+                请仔细查看随附的图片后回答，规则如下：
+                1. 只描述你确实看到的内容，看不清的地方要明确说「画面不清晰，无法确认」。
+                2. 仪表读数、铭牌编号、标签文字要原样读出，不确定时标注「疑似」。
+                3. 涉及操作步骤的画面，按从左到右、从上到下的顺序说明，并提示以现行有效技术资料为准。
+                4. 只支持图片；如果用户上传的是视频，请说明「视频解析需要走解析服务，当前未能获取解析结果，请稍后重试或改传关键帧截图」。
+                5. 使用简体中文，先给结论再列依据。
+            - id: 1700000000019-prompt-user
+              role: user
+              text: |
+                【用户问题】
+                {{#sys.query#}}
+
+                请结合随附图片回答。
+          selected: false
+          title: 图片直读作答
+          type: llm
+          vision:
+            configs:
+              detail: high
+              variable_selector:
+                - sys
+                - files
+            enabled: true
+        height: 180
+        id: '1700000000019'
+        position:
+          x: 1320
+          y: 1060
+        positionAbsolute:
+          x: 1320
+          y: 1060
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: |
+            {{#1700000000019.text#}}
+          desc: 输出图片直读回答
+          selected: false
+          title: 回答（图片直读）
+          type: answer
+          variables: []
+        height: 120
+        id: '1700000000020'
+        position:
+          x: 1640
+          y: 1060
+        positionAbsolute:
+          x: 1640
+          y: 1060
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: 从用户的评价语句中抽取主观 3 项指标与改进建议。用户只给一个总评分时，其余两项按语气推断
+          instruction: |
+            从用户的评价语句中提取以下字段。
+            - satisfaction：主观指标1「满意度」，1-5 的整数。用户明确给出数字（如「满意度5」「#评价 4」）直接采用；
+              若只表达态度，按规则映射：非常满意/很好/完美=5，满意/不错=4，一般/还行=3，
+              不太满意/有待改进=2，很不满意/很差/错误=1。无法判断时，正面语气取 4，负面取 2。
+            - usefulness：主观指标2「有用性」，1-5 的整数，指回答是否真正解决了用户的问题。
+              用户明说就采用；否则按语义推断：解决了=5，基本解决=4，部分解决=3，没解决=2，答非所问=1。
+            - experience：主观指标3「体验感」，1-5 的整数，指是否易读易懂、结构清晰、响应是否及时。
+              用户明说就采用；否则默认 4，用户抱怨「太啰嗦」「看不懂」「太慢」时取 2 或 3。
+            - suggestion：用户提出的改进建议原文，保留原始表述，不要改写、不要总结。没有建议时返回空字符串。
+          model:
+            completion_params:
+              thinking: false
+              max_tokens: 200
+              temperature: 0.1
+            mode: chat
+            name: deepseek-flash
+            provider: langgenius/deepseek/deepseek
+          parameters:
+            - description: 主观指标1 满意度，1 到 5 的整数
+              name: satisfaction
+              required: true
+              type: number
+            - description: 主观指标2 有用性，1 到 5 的整数
+              name: usefulness
+              required: false
+              type: number
+            - description: 主观指标3 体验感，1 到 5 的整数
+              name: experience
+              required: false
+              type: number
+            - description: 用户提出的改进建议原文；没有建议时为空字符串
+              name: suggestion
+              required: false
+              type: string
+          query:
+            - sys
+            - query
+          reasoning_mode: prompt
+          selected: false
+          title: 提取主观评分与建议
+          type: parameter-extractor
+          vision:
+            enabled: false
+        height: 160
+        id: '1700000000021'
+        position:
+          x: 680
+          y: 1320
+        positionAbsolute:
+          x: 680
+          y: 1320
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          desc: 生成评价回执。回执正文供用户阅读，末尾标记供本地评测服务自动解析，字段名约定见 docs/02，勿随意改动
+          selected: false
+          template: |
+            ✅ 已记录你的评价，感谢反馈！
+
+            - 主观指标1 满意度：{{ satisfaction }} / 5
+            - 主观指标2 有用性：{{ usefulness }} / 5
+            - 主观指标3 体验感：{{ experience }} / 5
+            - 改进建议：{{ suggestion }}
+
+            我们会据此补充技术资料、校正术语与版本引用，并优化回答质量。
+            [[EVAL_RECEIPT]]satisfaction={{ satisfaction }},usefulness={{ usefulness }},experience={{ experience }},suggestion={{ suggestion }}[[/EVAL_RECEIPT]]
+          title: 评价回执
+          type: template-transform
+          variables:
+            - value_selector:
+                - '1700000000021'
+                - satisfaction
+              variable: satisfaction
+            - value_selector:
+                - '1700000000021'
+                - usefulness
+              variable: usefulness
+            - value_selector:
+                - '1700000000021'
+                - experience
+              variable: experience
+            - value_selector:
+                - '1700000000021'
+                - suggestion
+              variable: suggestion
+        height: 140
+        id: '1700000000022'
+        position:
+          x: 1000
+          y: 1320
+        positionAbsolute:
+          x: 1000
+          y: 1320
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: '{{#1700000000022.output#}}'
+          desc: 回复评价回执
+          selected: false
+          title: 回复评价回执
+          type: answer
+          variables: []
+        height: 120
+        id: '1700000000023'
+        position:
+          x: 1320
+          y: 1320
+        positionAbsolute:
+          x: 1320
+          y: 1320
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.5

@@ -1,0 +1,51 @@
+{
+  "limit": 100,
+  "has_more": false,
+  "data": [
+    {
+      "id": "conv-1001",
+      "name": "HYS-1 液压举升系统使用与保养咨询",
+      "inputs": {
+        "channel": "web",
+        "vip": false
+      },
+      "status": "normal",
+      "from_source": "api",
+      "from_end_user_id": "enduser-zhang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750000000,
+      "updated_at": 1750144000,
+      "annotated": false
+    },
+    {
+      "id": "conv-1002",
+      "name": "HYS-1 举升系统故障排除与参数核对",
+      "inputs": {
+        "channel": "web",
+        "vip": true
+      },
+      "status": "normal",
+      "from_source": "api",
+      "from_end_user_id": "enduser-li",
+      "from_account_id": "acct-se-02",
+      "created_at": 1750010800,
+      "updated_at": 1750165600,
+      "annotated": true
+    },
+    {
+      "id": "conv-1003",
+      "name": "HYS-1 装备技术资料查询与版本核对",
+      "inputs": {
+        "channel": "wechat",
+        "vip": true
+      },
+      "status": "normal",
+      "from_source": "api",
+      "from_end_user_id": "enduser-wang",
+      "from_account_id": "acct-se-01",
+      "created_at": 1750007200,
+      "updated_at": 1750169200,
+      "annotated": false
+    }
+  ]
+}

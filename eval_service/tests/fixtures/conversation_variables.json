@@ -1,0 +1,37 @@
+{
+  "conv-1001": {
+    "limit": 100,
+    "has_more": false,
+    "data": [
+      {
+        "id": "var-1",
+        "name": "user_role",
+        "value_type": "string",
+        "value": "instructor",
+        "description": "使用人员角色",
+        "created_at": 1750000000,
+        "updated_at": 1750000000
+      }
+    ]
+  },
+  "conv-1002": {
+    "limit": 100,
+    "has_more": false,
+    "data": [
+      {
+        "id": "var-2",
+        "name": "user_role",
+        "value_type": "string",
+        "value": "technician",
+        "description": "使用人员角色",
+        "created_at": 1750000000,
+        "updated_at": 1750000000
+      }
+    ]
+  },
+  "conv-1003": {
+    "limit": 100,
+    "has_more": false,
+    "data": []
+  }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>装备技术资料智能问答质量评测报告</title>
+<style>
+  :root { --fg:#1f2937; --muted:#6b7280; --line:#e5e7eb; --brand:#2f6fed; --bad:#dc2626; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:28px; background:#f7f8fa; color:var(--fg);
+         font-family:"Microsoft YaHei","PingFang SC","Segoe UI",Arial,sans-serif; font-size:14px; line-height:1.6; }
+  h1 { font-size:22px; margin:0 0 6px; }
+  h2 { font-size:17px; margin:28px 0 10px; padding-left:9px; border-left:4px solid var(--brand); }
+  h3 { font-size:14px; margin:12px 0 6px; color:var(--muted); }
+  .meta { color:var(--muted); margin-bottom:18px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px 14px; }
+  .card-k { color:var(--muted); font-size:12px; }
+  .card-v { font-size:20px; font-weight:600; margin-top:4px; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td { padding:7px 10px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { background:#f1f3f7; font-weight:600; white-space:nowrap; }
+  td.n { text-align:right; white-space:nowrap; }
+  td.mono { font-family:Consolas,monospace; font-size:12px; white-space:nowrap; }
+  td.small { font-size:12px; color:var(--muted); }
+  td.strong { font-weight:600; }
+  tr.bad td.strong { color:var(--bad); }
+  tr.bad { background:#fff7f7; }
+  .bar { background:#eef2f7; border-radius:4px; height:18px; min-width:120px; }
+  .bar-fill { background:var(--brand); color:#fff; font-size:11px; line-height:18px; text-align:right;
+              padding-right:6px; border-radius:4px; min-width:2px; white-space:nowrap; }
+  .muted { color:var(--muted); }
+  footer { margin-top:26px; color:var(--muted); font-size:12px; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+</style>
+</head>
+<body>
+<h1>装备技术资料智能问答质量评测报告</h1>
+<div class="meta">生成时间：2026-09-27 19:32:00 ｜ 统计周期：all ｜ 样本量：12 条</div>
+
+<h2>一、总体指标</h2>
+<div class="cards"><div class="card"><div class="card-k">样本量</div><div class="card-v">12</div></div><div class="card"><div class="card-k">CSI 均值</div><div class="card-v">2.25</div></div><div class="card"><div class="card-k">CSI 中位数</div><div class="card-v">1.57</div></div><div class="card"><div class="card-k">CSI P90</div><div class="card-v">4.87</div></div><div class="card"><div class="card-k">达标率 (&gt;=3.5)</div><div class="card-v">25.0%</div></div><div class="card"><div class="card-k">优秀率 (&gt;=4.2)</div><div class="card-v">16.7%</div></div><div class="card"><div class="card-k">badcase 占比</div><div class="card-v">75.0%</div></div><div class="card"><div class="card-k">知识缺失占比</div><div class="card-v">66.7%</div></div><div class="card"><div class="card-k">用户评分均值</div><div class="card-v">-</div></div><div class="card"><div class="card-k">用户评分覆盖</div><div class="card-v">0.0%</div></div><div class="card"><div class="card-k">LLM 质量分均值</div><div class="card-v">2.25</div></div><div class="card"><div class="card-k">Pearson 相关</div><div class="card-v">-</div></div></div>
+
+<h2>二、维度均值（满分 5）</h2>
+<table>
+<thead><tr><th>维度</th><th>均值</th><th>对比</th></tr></thead>
+<tbody><tr><td>事实准确性 FA</td><td class="n">2.42</td><td><div class="bar"><div class="bar-fill" style="width:48.4%">2.42</div></div></td></tr><tr><td>知识完备性 KC</td><td class="n">2.08</td><td><div class="bar"><div class="bar-fill" style="width:41.6%">2.08</div></div></td></tr><tr><td>相关性 RE</td><td class="n">2.42</td><td><div class="bar"><div class="bar-fill" style="width:48.4%">2.42</div></div></td></tr><tr><td>表达清晰度 CL</td><td class="n">1.92</td><td><div class="bar"><div class="bar-fill" style="width:38.4%">1.92</div></div></td></tr><tr><td>检索命中质量 RQ</td><td class="n">3.67</td><td><div class="bar"><div class="bar-fill" style="width:73.4%">3.67</div></div></td></tr><tr><td>安全合规性 SC（装备域）</td><td class="n">4.00</td><td><div class="bar"><div class="bar-fill" style="width:80.0%">4.00</div></div></td></tr><tr><td>版本时效性 VC（装备域）</td><td class="n">4.33</td><td><div class="bar"><div class="bar-fill" style="width:86.6%">4.33</div></div></td></tr><tr><td>术语规范性 TN（装备域）</td><td class="n">2.25</td><td><div class="bar"><div class="bar-fill" style="width:45.0%">2.25</div></div></td></tr></tbody>
+</table>
+<p class="muted">RQ 覆盖率 25.0%：未发生检索的问答 RQ 记为 0，不参与均值计算。</p>
+
+<h2>三、判定分布</h2>
+<table>
+<thead><tr><th>判定</th><th>数量</th><th>占比</th><th>分布</th></tr></thead>
+<tbody><tr><td>优秀</td><td class="n">2</td><td class="n">16.7%</td><td><div class="bar"><div class="bar-fill" style="width:16.7%">2</div></div></td></tr><tr><td>良好</td><td class="n">1</td><td class="n">8.3%</td><td><div class="bar"><div class="bar-fill" style="width:8.3%">1</div></div></td></tr><tr><td>待改进</td><td class="n">0</td><td class="n">0.0%</td><td><div class="bar"><div class="bar-fill" style="width:0.0%">0</div></div></td></tr><tr><td>不合格</td><td class="n">9</td><td class="n">75.0%</td><td><div class="bar"><div class="bar-fill" style="width:75.0%">9</div></div></td></tr></tbody>
+</table>
+
+<h2>四、标签与归因分布</h2>
+<div class="grid2">
+  <div><h3>标注标签</h3><table><thead><tr><th>取值</th><th>数量</th><th>占比</th></tr></thead><tbody><tr><td>知识缺失</td><td class="n">8</td><td><div class="bar"><div class="bar-fill" style="width:66.7%">66.7%</div></div></td></tr><tr><td>正确</td><td class="n">2</td><td><div class="bar"><div class="bar-fill" style="width:16.7%">16.7%</div></div></td></tr><tr><td>拒答不当</td><td class="n">1</td><td><div class="bar"><div class="bar-fill" style="width:8.3%">8.3%</div></div></td></tr><tr><td>错误</td><td class="n">1</td><td><div class="bar"><div class="bar-fill" style="width:8.3%">8.3%</div></div></td></tr></tbody></table></div>
+  <div><h3>错误归因</h3><table><thead><tr><th>取值</th><th>数量</th><th>占比</th></tr></thead><tbody><tr><td>知识库缺失</td><td class="n">8</td><td><div class="bar"><div class="bar-fill" style="width:66.7%">66.7%</div></div></td></tr><tr><td>无</td><td class="n">2</td><td><div class="bar"><div class="bar-fill" style="width:16.7%">16.7%</div></div></td></tr><tr><td>提示词缺陷</td><td class="n">1</td><td><div class="bar"><div class="bar-fill" style="width:8.3%">8.3%</div></div></td></tr><tr><td>模型能力不足</td><td class="n">1</td><td><div class="bar"><div class="bar-fill" style="width:8.3%">8.3%</div></div></td></tr></tbody></table></div>
+  <div><h3>幻觉风险</h3><table><thead><tr><th>取值</th><th>数量</th><th>占比</th></tr></thead><tbody><tr><td>无</td><td class="n">12</td><td><div class="bar"><div class="bar-fill" style="width:100.0%">100.0%</div></div></td></tr></tbody></table></div>
+  <div><h3>用户评分分布</h3><p class="muted">暂无数据</p></div>
+</div>
+
+<h2>五、逐条明细</h2>
+<table>
+<thead><tr><th>#</th><th>消息ID</th><th>问题</th><th>FA</th><th>KC</th><th>RE</th><th>CL</th><th>RQ</th><th>SC</th><th>VC</th><th>TN</th><th>US</th><th>CSI</th><th>判定</th><th>标签</th><th>归因</th><th>评分理由</th></tr></thead>
+<tbody><tr class='bad'><td>1</td><td class='mono'>cca4fcf0-7ccf-487a-9339-ab316e5d3ab3</td><td>你好</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>拒答不当</td><td>提示词缺陷</td><td class='small'>用户仅打招呼，系统回答完全为空，未作任何回应或引导，属应答复而未答复；未触发检索，无编造内容，也不涉及安全与版本条款。</td></tr><tr class='bad'><td>2</td><td class='mono'>9f72fadd-e6f6-46ee-a654-8c74b506c0d3</td><td>你好</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>3</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>错误</td><td>模型能力不足</td><td class='small'>用户仅问候，系统返回空内容，既未作答也未回应，属无效输出；无检索、无知识片段，不存在编造，但完全未满足交互需求。</td></tr><tr class='bad'><td>3</td><td class='mono'>eb92fc9f-f982-4493-8276-1f597cbaac10</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>系统回答为空，未给出滤纸更换周期；知识片段与参考答案均缺失，检索未触发，属知识库覆盖缺口，无编造内容。</td></tr><tr class='bad'><td>4</td><td class='mono'>73329d63-82f6-4c30-91d7-288768318987</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>系统回答为空，未给出滤纸更换周期的工作小时数；知识片段与参考答案均为空，无任何检索命中，无法支撑作答，属知识库覆盖缺失。</td></tr><tr class='bad'><td>5</td><td class='mono'>419a4224-8f01-44fe-a217-e178aa19e5cf</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>系统回答为空，知识片段与参考答案均未提供，未触发检索，无法给出滤纸更换周期的工作小时数，属知识库覆盖缺口，无编造内容。</td></tr><tr class='bad'><td>6</td><td class='mono'>b9185bab-3413-4fc9-bb93-f8fa35f6eb06</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>1.00</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>系统回答为空，未检索到任何知识片段，也无参考答案，未提供滤纸更换周期信息；因无输出故无幻觉，但属于典型知识库覆盖缺口。</td></tr><tr class='bad'><td>7</td><td class='mono'>5692d8a3-bbaa-45dc-80f9-ced58a829ebd</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>3</td><td class='n'>3</td><td class='n'>3</td><td class='n'>1</td><td class='n'>1</td><td class='n'>3</td><td class='n'>0</td><td class='n'>1</td><td class='n'>-</td><td class='n strong'>2.71</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>知识片段为空，回答如实说明未收录且未编造周期数值，但正文严重乱码不可读，滤纸更换安全警示无法确认传达，属知识库覆盖缺口。</td></tr><tr class='bad'><td>8</td><td class='mono'>4b926ae7-ecbe-4bfe-a84a-dac371201310</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>3</td><td class='n'>1</td><td class='n'>3</td><td class='n'>1</td><td class='n'>0</td><td class='n'>3</td><td class='n'>0</td><td class='n'>2</td><td class='n'>-</td><td class='n strong'>2.14</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>知识片段与参考答案均为空，库内确无滤纸更换周期数据，回答未编造数值、仅提示查阅设备手册，方向正确；但正文严重乱码、结构混乱，未给出任何可用要点，检索未命中，属…</td></tr><tr class='bad'><td>9</td><td class='mono'>be462c9a-723f-43e9-b9e7-f28c26adc203</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>3</td><td class='n'>2</td><td class='n'>3</td><td class='n'>1</td><td class='n'>0</td><td class='n'>0</td><td class='n'>0</td><td class='n'>2</td><td class='n'>-</td><td class='n strong'>2.43</td><td>不合格</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>知识片段与参考答案均为空，回答如实说明知识库未覆盖、未编造数值，但未给出用户所需的更换周期；且思考段出现大量乱码，严重损害可读性。</td></tr><tr class=''><td>10</td><td class='mono'>c69ec713-1be7-4753-9625-41c80a981161</td><td>滤纸更换周期是多少工作小时？</td><td class='n'>4</td><td class='n'>3</td><td class='n'>4</td><td class='n'>4</td><td class='n'>0</td><td class='n'>4</td><td class='n'>3</td><td class='n'>4</td><td class='n'>-</td><td class='n strong'>3.71</td><td>良好</td><td>知识缺失</td><td>知识库缺失</td><td class='small'>知识库无相关片段，回答未编造工时数值，指出周期取决于型号/部位/工况并给出安全提示与补充资料请求，属合理拒答；因未给出具体周期，完备性一般。</td></tr><tr class=''><td>11</td><td class='mono'>93c63bfe-2652-4a98-a23a-9ef034efa393</td><td>滤芯更换周期是多少工作小时？</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>-</td><td class='n strong'>5.00</td><td>优秀</td><td>正确</td><td>无</td><td class='small'>回答准确给出500工作小时或12个月、以先到为准，与HYS-WX-003 V2.0及HYS-CZ-002 V4.0一致；标注V3.0的300小时已作废，并完整…</td></tr><tr class=''><td>12</td><td class='mono'>4552c836-6999-428e-8f14-3cb07224dff6</td><td>滤芯更换周期是多少工作小时？</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>5</td><td class='n'>-</td><td class='n strong'>5.00</td><td>优秀</td><td>正确</td><td>无</td><td class='small'>答案准确给出500工作小时或12个月以先到为准，正确引用现行版本并说明旧版300工作小时作废，检索命中充分且含相关安全提示。</td></tr></tbody>
+</table>
+
+<footer>
+判定规则：CSI&gt;=4.2 优秀；&gt;=3.5 良好；&gt;=2.8 待改进；&lt;2.8 不合格。红线：FA&lt;=2 直接不合格；US=dislike 且 CSI&gt;=3.5 降级为待改进。<br>
+装备域红线：安全合规性 SC&lt;=2 直接不合格（遗漏安全前置条件或禁止事项）；版本时效性 VC=1（引用作废版本）最多判待改进。<br>
+专项维度取值 0 表示「本条不涉及」（RQ 无检索 / SC 不涉及安全内容 / VC 不涉及版本引用），不参与均值计算。<br>
+badcase 规则：CSI&lt;3.0 或 FA&lt;=2 或 US=dislike 或（knowledge_gap 且 KC&lt;=2）或 SC&lt;=2 或 VC=1 或 TN&lt;=2 或命中装备域归因。
+</footer>
+</body>
+</html>
